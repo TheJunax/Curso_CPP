@@ -19,7 +19,7 @@
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
 | 2 | Funciones C++ | ✅ Completado (2026-09-22) |
-| 3 | POO básica: clases y objetos | ⬜ Pendiente |
+| 3 | POO básica: clases y objetos | 🟢 En progreso (M1 y M2 ✅, M3 pendiente) |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
 | 5 | Memoria y RAII | ⬜ Pendiente |
 | 6 | STL | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V, 1 y 2 completadas. Siguiente: **Fase 3 — POO básica: clases y objetos**.
+**Progreso orientativo:** ✅ Fases V, 1 y 2 completadas. 🟢 Fase 3 en progreso (M1 y M2). Siguiente: **Fase 3, Módulo 3 — Operadores y amigos**.
 
 ---
 
@@ -234,11 +234,11 @@ Unir datos y comportamiento en un tipo definido por el usuario.
 ## Módulo 1 — Clases y encapsulamiento
 
 ### Conceptos
-- [ ] `class` vs `struct`
-- [ ] `private` / `public` / `protected`
-- [ ] Métodos y atributos
-- [ ] `this`
-- [ ] Métodos `const`
+- [x] `class` vs `struct`
+- [x] `private` / `public` / `protected`
+- [x] Métodos y atributos
+- [x] `this`
+- [x] Métodos `const`
 
 ### Ejercicios
 - [x] Clase `CuentaBancaria` con depositar/retirar/saldo
@@ -253,21 +253,21 @@ Unir datos y comportamiento en un tipo definido por el usuario.
 ## Módulo 2 — Constructores y destructores
 
 ### Conceptos
-- [ ] Constructor por defecto
-- [ ] Constructor con parámetros
-- [ ] Lista de inicialización
-- [ ] Destructor `~Clase()`
-- [ ] Orden de construcción/destrucción
+- [x] Constructor por defecto
+- [x] Constructor con parámetros
+- [x] Lista de inicialización
+- [x] Destructor `~Clase()`
+- [x] Orden de construcción/destrucción
 
 ### Ejercicios
-- [ ] Clase `Archivo` que abre/cierra en constructor/destructor
-- [ ] Lista de inicialización en `Persona`
+- [x] Clase `Archivo` que abre/cierra en constructor/destructor
+- [x] Lista de inicialización en `Persona`
 
 ### Checkpoint
-- [ ] ¿Cuándo se llama cada constructor y el destructor?
-- [ ] ¿Por qué se inicializa en la lista y no en el cuerpo?
+- [x] ¿Cuándo se llama cada constructor y el destructor?
+- [x] ¿Por qué se inicializa en la lista y no en el cuerpo?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-22) — Sesión 11
 
 ## Módulo 3 — Operadores y amigos
 
@@ -609,6 +609,8 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 7 | 2026-09-22 | Fase 2 M1: sobrecarga, ambigüedad (`sumar(3,4.5)`), parámetros por defecto, desambiguar con `static_cast` | ✅ Completado |
 | 8 | 2026-09-22 | Fase 2 M2: lambdas, captura por valor vs referencia (125 vs 64), `count_if` con vector | ✅ Completado |
 | 9 | 2026-09-22 | 🏆 Proyecto 2 (calculadora): funciones, validación de cero (división y módulo), código muerto eliminado. **Fase 2 completada** | ✅ Completado |
+| 10 | 2026-09-22 | Fase 3 M1: clases, encapsulamiento (`private`/`public`), `this`, métodos `const` (`CuentaBancaria`, `Persona`). **M1 completado** | ✅ Completado |
+| 11 | 2026-09-22 | Fase 3 M2: constructores (por defecto/con parámetros), lista de inicialización, destructor, orden construcción/destrucción, `fstream` (`ofstream`/`ifstream`), clase `Archivo` con RAII. Mini-tema: `enum class` (duda de prerrequisitos saldada). Regla de comunicación "no marica" documentada en AGENTS.md. **M2 completado** | ✅ Completado |
 
 ---
 
@@ -645,3 +647,5 @@ _(Ir llenando con los temas débiles marcados en cada checkpoint.)_
 # 🧭 ADELANTOS
 
 _(Registrar aquí cualquier tema trabajado fuera de orden y su justificación.)_
+
+- [x] `enum class` (C++ moderno): explicado en Sesión 11. Juan dudó si `union`/`enum` eran prerrequisito del Módulo 2; se aclaró que ya los domina de C y se mostró la única diferencia importante de C++ (ámbito y tipado fuerte). No bloquea ningún módulo.
