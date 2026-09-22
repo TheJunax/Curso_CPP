@@ -16,7 +16,7 @@
 
 | Fase | Tema | Estado |
 |---|---|---|
-| V | Validación de conocimientos previos de C | 🟢 En progreso |
+| V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ⬜ Pendiente |
 | 2 | Funciones C++ | ⬜ Pendiente |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase de validación en curso — VC1 y VC2 validados (falta VC3).
+**Progreso orientativo:** ✅ Validación completada (VC1-VC3). Siguiente: **Fase 1 — C++ desde C**.
 
 ---
 
@@ -101,11 +101,11 @@ Juan domina C (punteros, memoria dinámica, structs, archivos). Antes de la Fase
 
 **Cubre:** punteros vs referencias, `const` con punteros/referencias, `nullptr`.
 
-**Resultado:** ⬜ Pendiente
+**Resultado:** ✅ Completado (2026-09-22)
 
 ---
 
-# 🟢 FASE V — VALIDACIÓN DE C (en progreso)
+# ✅ FASE V — VALIDACIÓN DE C (completada 2026-09-22)
 
 ## Objetivo
 
@@ -599,6 +599,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 1 | — | Creación de la ruta | ✅ Creación |
 | 2 | 2026-09-22 | VC1 validado: traducción C→C++ (`cout`/`cin`), flags `-Wall -Wextra -g -o` | ✅ Completado |
 | 3 | 2026-09-22 | VC2 validado: `std::string` (length, comparación natural, concatenación, find/npos, indexación) | ✅ Completado |
+| 4 | 2026-09-22 | VC3 validado: punteros vs referencias, `nullptr`, `const`. **Fase V completada** | ✅ Completado |
 
 ---
 
@@ -616,12 +617,19 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] Comparar `char*` con `==` en vez de `strcmp`/`std::string`
 - [ ] Excepción capturada por valor → slicing
 - [ ] Cambiar el vector durante la iteración → iterador inválido
+- [ ] `std::string = 0` → crash: un string no se inicializa como número (Sesión 3)
+- [ ] `find()` no devuelve bool: devuelve posición o `npos`; `npos == npos` es siempre true (Sesión 3)
+- [ ] `*p = &x;` con `p = nullptr`: mezclar asignación al puntero (`p = &x`) con la del valor apuntado (`*p = ...`) → error de tipos y segfault (Sesión 4)
+- [ ] `else` pegado al último `if` de una cadena → mensajes contradictorios (Sesión 3)
+- [ ] `const int &r = x; r = 100;` NO cambia x: es error de compilación (Sesión 4)
 
 ---
 
 # 🔁 REPASOS PENDIENTES
 
 _(Ir llenando con los temas débiles marcados en cada checkpoint.)_
+
+- [ ] `const` con referencias: confundido en VC3, validado con demo en vivo — reforzar en Fase 1 (Sesión 4)
 
 ---
 
