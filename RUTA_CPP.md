@@ -18,7 +18,7 @@
 |---|---|---|
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
-| 2 | Funciones C++ | 🟢 En progreso (M1 completado, falta M2) |
+| 2 | Funciones C++ | 🟢 En progreso (M1+M2 completados, falta proyecto) |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
 | 5 | Memoria y RAII | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V y 1 completadas. **Fase 2** en curso: M1 (sobrecarga, defaults) listo, falta M2 (lambdas).
+**Progreso orientativo:** ✅ Fases V y 1. **Fase 2**: M1+M2 listos, falta proyecto (mini calculadora).
 
 ---
 
@@ -206,17 +206,17 @@ Dominar las herramientas de funciones que C no tenía.
 ## Módulo 2 — Lambda y funciones anónimas
 
 ### Conceptos
-- [ ] Sintaxis de lambda `[...](...) -> ...`
-- [ ] Captura por valor/referencia
-- [ ] Uso con la STL
+- [x] Sintaxis de lambda `[...](...) -> ...`
+- [x] Captura por valor/referencia (demostrado con contraste 125 vs 64)
+- [x] Uso con la STL (`std::count_if`)
 
 ### Ejercicios
-- [ ] Lambda que filtra un vector
+- [x] Lambda que filtra un vector (notas >= 60)
 
 ### Checkpoint
-- [ ] Explicar qué captura y por qué
+- [x] Explicar qué captura y por qué (valor = copia congelada, referencia = original en vivo)
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-22)
 
 ### 🏆 Proyecto de fase
 - [ ] Mini calculadora con menú usando funciones C++
@@ -605,6 +605,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 5 | 2026-09-22 | Fase 1 M1+M2: `auto`, `constexpr`, `static_cast`, intercambio con referencias | ✅ Completado |
 | 6 | 2026-09-22 | 🏆 Proyecto 1 (conversor de unidades): menú, `constexpr`, validación con `return`, funciones puras. **Fase 1 completada** | ✅ Completado |
 | 7 | 2026-09-22 | Fase 2 M1: sobrecarga, ambigüedad (`sumar(3,4.5)`), parámetros por defecto, desambiguar con `static_cast` | ✅ Completado |
+| 8 | 2026-09-22 | Fase 2 M2: lambdas, captura por valor vs referencia (125 vs 64), `count_if` con vector | ✅ Completado |
 
 ---
 
