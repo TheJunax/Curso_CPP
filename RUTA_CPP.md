@@ -18,7 +18,7 @@
 |---|---|---|
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
-| 2 | Funciones C++ | ⬜ Pendiente |
+| 2 | Funciones C++ | 🟢 En progreso (M1 completado, falta M2) |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
 | 5 | Memoria y RAII | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Validación y Fase 1 completadas (Proyecto 1: conversor de unidades). Siguiente: **Fase 2 — Funciones C++**.
+**Progreso orientativo:** ✅ Fases V y 1 completadas. **Fase 2** en curso: M1 (sobrecarga, defaults) listo, falta M2 (lambdas).
 
 ---
 
@@ -188,20 +188,20 @@ Dominar las herramientas de funciones que C no tenía.
 ## Módulo 1 — Sobrecarga y parámetros
 
 ### Conceptos
-- [ ] Sobrecarga de funciones
-- [ ] Parámetros por defecto
-- [ ] Parámetros por referencia y por valor
-- [ ] `inline`
+- [x] Sobrecarga de funciones (int/double, ambigüedad y desambiguación con `static_cast`)
+- [x] Parámetros por defecto (`dibujarRec`, regla del final de la lista)
+- [x] Parámetros por referencia y por valor (ya dominado: puras por valor, `pedirDatos` por ref)
+- [x] `inline`
 
 ### Ejercicios
-- [ ] Función `sumar` sobrecargada para `int` y `double`
-- [ ] Función con parámetros por defecto
+- [x] Función `sumar` sobrecargada para `int` y `double`
+- [x] Función con parámetros por defecto
 
 ### Checkpoint
-- [ ] ¿Cuándo el compilador elige una sobrecarga?
-- [ ] Diferencia entre pasar por valor y por referencia
+- [x] ¿Cuándo el compilador elige una sobrecarga? (cuando los argumentos encajan exacto)
+- [x] Diferencia entre pasar por valor y por referencia (Proyecto 1 / VC3)
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-22)
 
 ## Módulo 2 — Lambda y funciones anónimas
 
@@ -604,6 +604,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 4 | 2026-09-22 | VC3 validado: punteros vs referencias, `nullptr`, `const`. **Fase V completada** | ✅ Completado |
 | 5 | 2026-09-22 | Fase 1 M1+M2: `auto`, `constexpr`, `static_cast`, intercambio con referencias | ✅ Completado |
 | 6 | 2026-09-22 | 🏆 Proyecto 1 (conversor de unidades): menú, `constexpr`, validación con `return`, funciones puras. **Fase 1 completada** | ✅ Completado |
+| 7 | 2026-09-22 | Fase 2 M1: sobrecarga, ambigüedad (`sumar(3,4.5)`), parámetros por defecto, desambiguar con `static_cast` | ✅ Completado |
 
 ---
 
