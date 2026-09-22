@@ -13,10 +13,10 @@ int main(){
     auto valor = [base](int x){
         return pow(base, x);
     };
-    base = 4;
     auto referencia = [&base](int x){
         return pow(base, x);
     };
+    base = 4;
 
     std::vector<int> notas = {45,80,60,32,95};
     
