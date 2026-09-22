@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase de validación en curso — nada más iniciado.
+**Progreso orientativo:** Fase de validación en curso — VC1 validado (faltan VC2 y VC3).
 
 ---
 
@@ -85,7 +85,7 @@ Juan domina C (punteros, memoria dinámica, structs, archivos). Antes de la Fase
 
 **Cubre:** `g++` vs `gcc`, `iostream`, `cout`/`cin`, `namespace`, `using namespace std`.
 
-**Resultado:** ⬜ Pendiente
+**Resultado:** ✅ Completado (2026-09-22)
 
 ## Checkpoint VC2 — Cadenas y arrays
 
@@ -114,16 +114,16 @@ Confirmar que la base de C está sólida antes de entrar a C++.
 ### Módulo — Entorno g++
 
 #### Conceptos
-- [ ] Compilar con `g++`
-- [ ] `-Wall -Wextra -g`
-- [ ] Ejecutar con `./programa`
-- [ ] Diferencia `gcc` vs `g++`
+- [x] Compilar con `g++`
+- [x] `-Wall -Wextra -g`
+- [x] Ejecutar con `./programa`
+- [x] Diferencia `gcc` vs `g++`
 
 #### Checkpoint
-- [ ] Compilar manualmente un .cpp
-- [ ] Explicar para qué sirve cada flag
+- [x] Compilar manualmente un .cpp
+- [x] Explicar para qué sirve cada flag
 
-**Estado:** 🟢 En progreso
+**Estado:** ✅ Completado (2026-09-22)
 
 ---
 
@@ -597,6 +597,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | Sesión | Fecha | Contenido | Estado |
 |---|---|---|---|
 | 1 | — | Creación de la ruta | ✅ Creación |
+| 2 | 2026-09-22 | VC1 validado: traducción C→C++ (`cout`/`cin`), flags `-Wall -Wextra -g -o` | ✅ Completado |
 
 ---
 
