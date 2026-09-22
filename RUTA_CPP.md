@@ -17,7 +17,7 @@
 | Fase | Tema | Estado |
 |---|---|---|
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
-| 1 | C++ desde C | 🟢 En progreso (M1+M2 completados, falta proyecto) |
+| 1 | C++ desde C | ✅ Completado (2026-09-22) |
 | 2 | Funciones C++ | ⬜ Pendiente |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Validación completada. **Fase 1** en curso: módulos 1 y 2 listos, falta proyecto (conversor de unidades).
+**Progreso orientativo:** ✅ Validación y Fase 1 completadas (Proyecto 1: conversor de unidades). Siguiente: **Fase 2 — Funciones C++**.
 
 ---
 
@@ -173,7 +173,9 @@ Entender qué cambia C++ frente a C: modelo de datos, entrada/salida y tipos.
 **Estado:** ✅ Completado (2026-09-22)
 
 ### 🏆 Proyecto de fase
-- [ ] Conversor de unidades reescrito en C++ moderno
+- [x] Conversor de unidades reescrito en C++ moderno (Proyecto1.cpp, 6 pruebas pasadas)
+
+**Estado Fase 1:** ✅ Completada (2026-09-22)
 
 ---
 
@@ -601,6 +603,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 3 | 2026-09-22 | VC2 validado: `std::string` (length, comparación natural, concatenación, find/npos, indexación) | ✅ Completado |
 | 4 | 2026-09-22 | VC3 validado: punteros vs referencias, `nullptr`, `const`. **Fase V completada** | ✅ Completado |
 | 5 | 2026-09-22 | Fase 1 M1+M2: `auto`, `constexpr`, `static_cast`, intercambio con referencias | ✅ Completado |
+| 6 | 2026-09-22 | 🏆 Proyecto 1 (conversor de unidades): menú, `constexpr`, validación con `return`, funciones puras. **Fase 1 completada** | ✅ Completado |
 
 ---
 
