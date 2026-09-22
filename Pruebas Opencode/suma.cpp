@@ -24,7 +24,7 @@ int main() {
     cout << "Dame el segundo numero: ";
     cin >> b;
 
-    cout << "La suma es: " << a + b <<"\n";
+    cout << "La suma es: " << a + b << "\n";
 
     return 0;
 }

@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** Fase de validación en curso — VC1 validado (faltan VC2 y VC3).
+**Progreso orientativo:** Fase de validación en curso — VC1 y VC2 validados (falta VC3).
 
 ---
 
@@ -93,7 +93,7 @@ Juan domina C (punteros, memoria dinámica, structs, archivos). Antes de la Fase
 
 **Cubre:** `std::string`, operadores y métodos, comparación natural de strings.
 
-**Resultado:** ⬜ Pendiente
+**Resultado:** ✅ Completado (2026-09-22)
 
 ## Checkpoint VC3 — Punteros y memoria
 
@@ -598,6 +598,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 |---|---|---|---|
 | 1 | — | Creación de la ruta | ✅ Creación |
 | 2 | 2026-09-22 | VC1 validado: traducción C→C++ (`cout`/`cin`), flags `-Wall -Wextra -g -o` | ✅ Completado |
+| 3 | 2026-09-22 | VC2 validado: `std::string` (length, comparación natural, concatenación, find/npos, indexación) | ✅ Completado |
 
 ---
 
