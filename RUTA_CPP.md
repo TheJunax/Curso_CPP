@@ -241,14 +241,14 @@ Unir datos y comportamiento en un tipo definido por el usuario.
 - [ ] Métodos `const`
 
 ### Ejercicios
-- [x] Clase `CuentaBancaria` con depositar/retirar/saldo (`CuentaBancaria` validado primera vez sin warnings)
-- [x] Clase `Persona` con método `const` (setter sin `const` / getter `const`, `this->` en choque de nombres)
+- [x] Clase `CuentaBancaria` con depositar/retirar/saldo
+- [x] Clase `Persona` con método `const`
 
 ### Checkpoint
-- [ ] ¿Por qué encapsular?
-- [ ] ¿Qué significa que un método sea `const`?
+- [x] ¿Por qué encapsular?
+- [x] ¿Qué significa que un método sea `const`?
 
-**Estado:** 🟢 Código validado (2026-09-22) — ⬜ Checkpoint pendiente de respuesta oral
+**Estado:** ✅ Completado (2026-09-22) — Sesión 10
 
 ## Módulo 2 — Constructores y destructores
 
