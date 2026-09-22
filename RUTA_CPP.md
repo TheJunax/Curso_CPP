@@ -17,7 +17,7 @@
 | Fase | Tema | Estado |
 |---|---|---|
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
-| 1 | C++ desde C | ⬜ Pendiente |
+| 1 | C++ desde C | 🟢 En progreso (M1+M2 completados, falta proyecto) |
 | 2 | Funciones C++ | ⬜ Pendiente |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Validación completada (VC1-VC3). Siguiente: **Fase 1 — C++ desde C**.
+**Progreso orientativo:** ✅ Validación completada. **Fase 1** en curso: módulos 1 y 2 listos, falta proyecto (conversor de unidades).
 
 ---
 
@@ -136,41 +136,41 @@ Entender qué cambia C++ frente a C: modelo de datos, entrada/salida y tipos.
 ## Módulo 1 — Primer programa C++
 
 ### Conceptos
-- [ ] `#include <iostream>`
-- [ ] `main()`
-- [ ] `cout` / `cin`
-- [ ] `std::` y `using namespace std`
-- [ ] `endl` y `\n`
-- [ ] Compilación con g++
+- [x] `#include <iostream>`
+- [x] `main()`
+- [x] `cout` / `cin`
+- [x] `std::` y `using namespace std`
+- [x] `endl` y `\n`
+- [x] Compilación con g++
 
 ### Ejercicios
-- [ ] Hola Mundo en C++
-- [ ] Entrada y salida con `cin`/`cout`
+- [x] Hola Mundo en C++
+- [x] Entrada y salida con `cin`/`cout`
 
 ### Checkpoint
-- [ ] Comparar `printf`/`scanf` con `cout`/`cin`
-- [ ] Explicar qué es un namespace
+- [x] Comparar `printf`/`scanf` con `cout`/`cin`
+- [x] Explicar qué es un namespace
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (cubierto por VC1, sesión 2)
 
 ## Módulo 2 — Tipos, `const` y referencias
 
 ### Conceptos
-- [ ] Tipos básicos y `auto`
-- [ ] `const` y `constexpr`
-- [ ] Referencias `T&` (vs punteros)
-- [ ] `nullptr` (vs `NULL`)
-- [ ] Conversiones: `static_cast` (vs casting de C)
+- [x] Tipos básicos y `auto` (lección: `0` → int, `0.0` → double)
+- [x] `const` y `constexpr`
+- [x] Referencias `T&` (vs punteros)
+- [x] `nullptr` (vs `NULL`)
+- [x] Conversiones: `static_cast` (vs casting de C)
 
 ### Ejercicios
-- [ ] Programa que usa `auto`
-- [ ] Intercambio de variables con referencias
+- [x] Programa que usa `auto`
+- [x] Intercambio de variables con referencias
 
 ### Checkpoint
-- [ ] Explicar por qué las referencias son más seguras que los punteros
-- [ ] Cuándo usar `const`
+- [x] Explicar por qué las referencias son más seguras que los punteros (VC3)
+- [x] Cuándo usar `const`
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-22)
 
 ### 🏆 Proyecto de fase
 - [ ] Conversor de unidades reescrito en C++ moderno
@@ -600,6 +600,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 2 | 2026-09-22 | VC1 validado: traducción C→C++ (`cout`/`cin`), flags `-Wall -Wextra -g -o` | ✅ Completado |
 | 3 | 2026-09-22 | VC2 validado: `std::string` (length, comparación natural, concatenación, find/npos, indexación) | ✅ Completado |
 | 4 | 2026-09-22 | VC3 validado: punteros vs referencias, `nullptr`, `const`. **Fase V completada** | ✅ Completado |
+| 5 | 2026-09-22 | Fase 1 M1+M2: `auto`, `constexpr`, `static_cast`, intercambio con referencias | ✅ Completado |
 
 ---
 
@@ -629,7 +630,7 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 
 _(Ir llenando con los temas débiles marcados en cada checkpoint.)_
 
-- [ ] `const` con referencias: confundido en VC3, validado con demo en vivo — reforzar en Fase 1 (Sesión 4)
+- [x] `const` con referencias: confundido en VC3, validado con demo en vivo y reforzado en Fase 1 (Sesiones 4-5)
 
 ---
 
