@@ -18,7 +18,7 @@
 |---|---|---|
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
-| 2 | Funciones C++ | 🟢 En progreso (M1+M2 completados, falta proyecto) |
+| 2 | Funciones C++ | ✅ Completado (2026-09-22) |
 | 3 | POO básica: clases y objetos | ⬜ Pendiente |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
 | 5 | Memoria y RAII | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V y 1. **Fase 2**: M1+M2 listos, falta proyecto (mini calculadora).
+**Progreso orientativo:** ✅ Fases V, 1 y 2 completadas. Siguiente: **Fase 3 — POO básica: clases y objetos**.
 
 ---
 
@@ -219,7 +219,9 @@ Dominar las herramientas de funciones que C no tenía.
 **Estado:** ✅ Completado (2026-09-22)
 
 ### 🏆 Proyecto de fase
-- [ ] Mini calculadora con menú usando funciones C++
+- [x] Mini calculadora con menú usando funciones C++ (Proyecto2.cpp, batería 6/6)
+
+**Estado Fase 2:** ✅ Completada (2026-09-22)
 
 ---
 
@@ -606,6 +608,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 6 | 2026-09-22 | 🏆 Proyecto 1 (conversor de unidades): menú, `constexpr`, validación con `return`, funciones puras. **Fase 1 completada** | ✅ Completado |
 | 7 | 2026-09-22 | Fase 2 M1: sobrecarga, ambigüedad (`sumar(3,4.5)`), parámetros por defecto, desambiguar con `static_cast` | ✅ Completado |
 | 8 | 2026-09-22 | Fase 2 M2: lambdas, captura por valor vs referencia (125 vs 64), `count_if` con vector | ✅ Completado |
+| 9 | 2026-09-22 | 🏆 Proyecto 2 (calculadora): funciones, validación de cero (división y módulo), código muerto eliminado. **Fase 2 completada** | ✅ Completado |
 
 ---
 
