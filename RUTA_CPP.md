@@ -19,7 +19,7 @@
 | V | Validación de conocimientos previos de C | ✅ Completado (2026-09-22) |
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
 | 2 | Funciones C++ | ✅ Completado (2026-09-22) |
-| 3 | POO básica: clases y objetos | 🟢 En progreso (M1 y M2 ✅, M3 pendiente) |
+| 3 | POO básica: clases y objetos | ✅ Completado (2026-09-23) |
 | 4 | Herencia y polimorfismo | ⬜ Pendiente |
 | 5 | Memoria y RAII | ⬜ Pendiente |
 | 6 | STL | ⬜ Pendiente |
@@ -27,7 +27,7 @@
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V, 1 y 2 completadas. 🟢 Fase 3 en progreso (M1 y M2). Siguiente: **Fase 3, Módulo 3 — Operadores y amigos**.
+**Progreso orientativo:** ✅ Fases V, 1, 2 y 3 completadas. Siguiente: **Fase 4, Módulo 1 — Herencia**.
 
 ---
 
@@ -225,7 +225,7 @@ Dominar las herramientas de funciones que C no tenía.
 
 ---
 
-# ⬜ FASE 3 — POO BÁSICA: CLASES Y OBJETOS
+# ✅ FASE 3 — POO BÁSICA: CLASES Y OBJETOS (completada 2026-09-23)
 
 ## Objetivo
 
@@ -272,21 +272,21 @@ Unir datos y comportamiento en un tipo definido por el usuario.
 ## Módulo 3 — Operadores y amigos
 
 ### Conceptos
-- [ ] Sobrecarga de operadores (`+`, `==`, `<<`, ...)
-- [ ] Funciones `friend`
-- [ ] Copia: constructor de copia y `operator=`
+- [x] Sobrecarga de operadores (`+`, `==`, `<<`, ...)
+- [x] Funciones `friend`
+- [x] Copia: constructor de copia y `operator=`
 
 ### Ejercicios
-- [ ] Clase `Complejo` con `+`, `*`, `==`, `<<`
+- [x] Clase `Complejo` con `+`, `*`, `==`, `<<`
 
 ### Checkpoint
-- [ ] ¿Qué es y para qué sirve una función `friend`?
-- [ ] Diferencia entre constructor de copia y asignación
+- [x] ¿Qué es y para qué sirve una función `friend`?
+- [x] Diferencia entre constructor de copia y asignación
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-23) — Sesión 13
 
 ### 🏆 Proyecto de fase
-- [ ] Clase `Fraccion` operativa y probada
+- [x] Clase `Fraccion` operativa y probada
 
 ---
 
@@ -612,6 +612,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 10 | 2026-09-22 | Fase 3 M1: clases, encapsulamiento (`private`/`public`), `this`, métodos `const` (`CuentaBancaria`, `Persona`). **M1 completado** | ✅ Completado |
 | 11 | 2026-09-22 | Fase 3 M2: constructores (por defecto/con parámetros), lista de inicialización, destructor, orden construcción/destrucción, `fstream` (`ofstream`/`ifstream`), clase `Archivo` con RAII. Mini-tema: `enum class` (duda de prerrequisitos saldada). Regla de comunicación "no marica" documentada en AGENTS.md. **M2 completado** | ✅ Completado |
 | 12 | 2026-09-23 | Repaso Fase 3 M2: scope y orden de vida de objetos (constructor/destructor, inversión de orden), lista de inicialización vs asignación en el cuerpo, miembro `const` y error "no match for operator=". MiniReto.cpp: clase `Persona` con `const string nombre`, getter público, verificación desde `main` compilada con `-Wall -Wextra` (exit 0). Checkpoint 2/3: quedó flojo "const vs private" y "asignar vs inicializar" → marcado en 🔁 | 🟡 Por validar |
+| 13 | 2026-09-23 | Fase 3 M3: sobrecarga de operadores (`operator+`, `*`, `==`), funciones `friend` (`operator<<` con encadenamiento), constructor de copia vs `operator=` (demo Copia.cpp, predicción 4/4 en Prediccion.cpp). 🏆 Proyecto 3 (Complejo con +,\*,\,==,<<) y 🏆 Proyecto 4 (Fraccion con mcd, simplificación, signo, +,-,\*,/,\,==,<<). 🐛 shadowing detectado y corregido: `den = 1` en cuerpo modificaba el parámetro, no el miembro; fix con ternario en lista de inicialización. **Fase 3 completada** | ✅ Completado |
 
 ---
 
@@ -629,6 +630,7 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] Comparar `char*` con `==` en vez de `strcmp`/`std::string`
 - [ ] Excepción capturada por valor → slicing
 - [ ] Cambiar el vector durante la iteración → iterador inválido
+- [ ] Shadowing: parámetro del constructor con el mismo nombre del miembro → `den = 1` en el cuerpo cambia el PARÁMETRO, no el miembro (el miembro ya nació con la lista de inicialización). Fix: ternario en la lista `den(den == 0 ? 1 : den)` (Sesión 13)
 - [ ] `std::string = 0` → crash: un string no se inicializa como número (Sesión 3)
 - [ ] `find()` no devuelve bool: devuelve posición o `npos`; `npos == npos` es siempre true (Sesión 3)
 - [ ] `*p = &x;` con `p = nullptr`: mezclar asignación al puntero (`p = &x`) con la del valor apuntado (`*p = ...`) → error de tipos y segfault (Sesión 4)
