@@ -21,13 +21,13 @@
 | 2 | Funciones C++ | ✅ Completado (2026-09-22) |
 | 3 | POO básica: clases y objetos | ✅ Completado (2026-09-23) |
 | 4 | Herencia y polimorfismo | ✅ Completado (2026-09-23) |
-| 5 | Memoria y RAII | ⬜ Pendiente |
+| 5 | Memoria y RAII | 🟢 En progreso (M1 y M2 ✅, M3 a medias) |
 | 6 | STL | ⬜ Pendiente |
 | 7 | Plantillas | ⬜ Pendiente |
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V, 1, 2, 3 y 4 completadas. Siguiente: **Fase 5, Módulo 1 — `new`/`delete` y fugas**.
+**Progreso orientativo:** ✅ Fases V, 1, 2, 3 y 4 completadas. Fase 5 en progreso (M1 y M2 ✅; M3: falta `std::vector`/reubicación y el 🏆 proyecto `Matriz`).
 
 ---
 
@@ -346,52 +346,52 @@ Entender el ciclo de vida de los recursos en C++ y delegarlo a la STL.
 ## Módulo 1 — `new`/`delete` y fugas
 
 ### Conceptos
-- [ ] `new` / `delete` / `new[]` / `delete[]` (🐛)
-- [ ] Recursos y liberación manual
-- [ ] Detectar fugas con valgrind
+- [x] `new` / `delete` / `new[]` / `delete[]` (🐛)
+- [x] Recursos y liberación manual
+- [x] Detectar fugas con valgrind
 
 ### Ejercicios
-- [ ] Programa que fuga memoria a propósito y luego lo corrige
+- [x] Programa que fuga memoria a propósito y luego lo corrige
 
 ### Checkpoint
-- [ ] ¿Por qué `new[]` necesita `delete[]`?
-- [ ] ¿Cuándo es mejor no usar `new`?
+- [x] ¿Por qué `new[]` necesita `delete[]`?
+- [x] ¿Cuándo es mejor no usar `new`?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-23) — Sesión 15
 
 ## Módulo 2 — RAII y smart pointers
 
 ### Conceptos
-- [ ] RAII: el destructor libera
-- [ ] `std::unique_ptr`
-- [ ] `std::shared_ptr` y `std::weak_ptr`
-- [ ] `std::make_unique` / `std::make_shared`
+- [x] RAII: el destructor libera
+- [x] `std::unique_ptr`
+- [x] `std::shared_ptr` y `std::weak_ptr`
+- [x] `std::make_unique` / `std::make_shared`
 
 ### Ejercicios
-- [ ] Reemplazar un `new/delete` por `unique_ptr`
-- [ ] Clase que maneja recursos con RAII
+- [x] Reemplazar un `new/delete` por `unique_ptr`
+- [x] Clase que maneja recursos con RAII
 
 ### Checkpoint
-- [ ] ¿Qué resuelve RAII frente a C?
-- [ ] ¿Cuándo usar `shared_ptr` y cuándo `unique_ptr`?
+- [x] ¿Qué resuelve RAII frente a C?
+- [x] ¿Cuándo usar `shared_ptr` y cuándo `unique_ptr`?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-23) — Sesión 15
 
 ## Módulo 3 — Regla de tres/cinco
 
 ### Conceptos
-- [ ] Copia profunda vs superficial
-- [ ] Regla de tres/cinco (🐛)
+- [x] Copia profunda vs superficial
+- [x] Regla de tres/cinco (🐛)
 - [ ] `std::vector` y reubicación de memoria
 
 ### Ejercicios
-- [ ] Clase con buffer dinámico que implementa copia y movimiento
+- [x] Clase con buffer dinámico que implementa copia y movimiento
 
 ### Checkpoint
-- [ ] ¿Qué pasa si la copia es superficial?
-- [ ] ¿Qué problemas causa un destructor mal hecho?
+- [x] ¿Qué pasa si la copia es superficial?
+- [x] ¿Qué problemas causa un destructor mal hecho?
 
-**Estado:** ⬜ Pendiente
+**Estado:** 🟢 En progreso (falta: `std::vector`/reubicación + 🏆 proyecto `Matriz`)
 
 ### 🏆 Proyecto de fase
 - [ ] `Matriz` dinámica con RAII y regla de cinco
@@ -614,6 +614,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 12 | 2026-09-23 | Repaso Fase 3 M2: scope y orden de vida de objetos (constructor/destructor, inversión de orden), lista de inicialización vs asignación en el cuerpo, miembro `const` y error "no match for operator=". MiniReto.cpp: clase `Persona` con `const string nombre`, getter público, verificación desde `main` compilada con `-Wall -Wextra` (exit 0). Checkpoint 2/3: quedó flojo "const vs private" y "asignar vs inicializar" → marcado en 🔁 | 🟡 Por validar |
 | 13 | 2026-09-23 | Fase 3 M3: sobrecarga de operadores (`operator+`, `*`, `==`), funciones `friend` (`operator<<` con encadenamiento), constructor de copia vs `operator=` (demo Copia.cpp, predicción 4/4 en Prediccion.cpp). 🏆 Proyecto 3 (Complejo con +,\*,\,==,<<) y 🏆 Proyecto 4 (Fraccion con mcd, simplificación, signo, +,-,\*,/,\,==,<<). 🐛 shadowing detectado y corregido: `den = 1` en cuerpo modificaba el parámetro, no el miembro; fix con ternario en lista de inicialización. **Fase 3 completada** | ✅ Completado |
 | 14 | 2026-09-23 | Fase 4 M1+M2: herencia (`public`/`protected`), constructores en cadena, object slicing (demo 48 vs 40 bytes), `virtual` y despacho dinámico (demo: sin virtual → "Figura generica 0"; con virtual → áreas reales), destructor virtual (demo Base/Derivada: sin virtual el ~Derivada no corre), clases abstractas, `override`, for basado en rango y `vector` (adelanto Fase 6). Ejercicios: CuentaBancaria→CuentaAhorros (Herencia.cpp), Empleado→Gerente (ejemplo). 🏆 Proyecto de fase: sistema de figuras (Proyecto4.cpp) aprobado. Checkpoints M1 y M2 en voz de Juan. Regla de tutoría: NO modificar el código del estudiante sin permiso (jalón de orejas registrado). **Fase 4 completada** | ✅ Completado |
+| 15 | 2026-09-23 | Fase 5 (continuación de la sesión 14, mismo día): M1 `new`/`delete`/`new[]`/`delete[]` (Memoria1.cpp, orden inverso de destrucción), valgrind, reto Fuga.cpp corregido (`delete` → `delete[]`: warning `-Wmismatched-new-delete` + crash `munmap_chunk invalid pointer`). ✅ M1. M2 RAII: smart pointers — `unique_ptr` (move, sin copia, destrucción automática, demo SmartPointers.cpp + valgrind 0), `shared_ptr`/`weak_ptr` (use_count, make_shared, demo en chat), reto: Fuga.cpp reescrito sin `new`/`delete` (unique_ptr + make_unique + parámetros por defecto; valgrind `All heap blocks were freed`). ✅ M2. M3: copia superficial vs profunda (BufferMal doble free con AddressSanitizer vs BufferBien valgrind limpio), regla de tres/cinco, reto RetoReglaCinco.cpp (move ctor con bug `datos(new int (n))` → 12 bytes definitivamente perdidos + bloque de 1 int; corregido a robo directo `datos(otro.datos)` → 5 allocs/5 frees). Checkpoints M1, M2 y M3 en voz de Juan. Regla de tutoría reforzada: AVISAR antes de crear archivos y no tocar sus archivos sin autorización. Duda resuelta: el hash se ve en Fase 6 (`std::unordered_map`) y EDA. **Fase 5 M1 y M2 ✅, M3 a medias** | ✅ Completado |
 
 ---
 
@@ -621,16 +622,18 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 
 _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)_
 
-- [ ] `new`/`delete` sin pareja correcta → fuga de memoria o crash
-- [ ] Destructor no virtual en clase base → UB al destruir por puntero base
-- [ ] Object slicing al pasar objeto derivado por valor
+- [x] `new`/`delete` sin pareja correcta → fuga de memoria o crash (`delete` sobre `new[]` detectado por `-Wmismatched-new-delete` + `munmap_chunk(): invalid pointer`, Sesión 15)
+- [x] Destructor no virtual en clase base → UB al destruir por puntero base (Sesión 14)
+- [x] Object slicing al pasar objeto derivado por valor (Sesión 14)
 - [ ] Referencia colgante devuelta de una función
-- [ ] Regla de tres/cinco ignorada → doble free
+- [x] Regla de tres/cinco ignorada → doble free (BufferMal, Sesión 15)
 - [ ] `using namespace std` global provocando colisiones
 - [ ] Llamada a virtual en constructor → no llama al override
 - [ ] Comparar `char*` con `==` en vez de `strcmp`/`std::string`
 - [ ] Excepción capturada por valor → slicing
 - [ ] Cambiar el vector durante la iteración → iterador inválido
+- [ ] `new int (n)` vs `new int[n]`: los PARÉNTESIS crean UN solo int con valor `n`; los CORCHETES crean un array de `n`. Confundirlos en un move ctor → bloque del tamaño equivocado (Sesión 15, RetoReglaCinco)
+- [ ] Move constructor que ALOCA en vez de ROBAR: el move debe ser cero asignaciones de memoria; si el donante se anula sin robar/liberar su bloque → fuga silenciosa (12 bytes definitivamente perdidos, Sesión 15)
 - [ ] Shadowing: parámetro del constructor con el mismo nombre del miembro → `den = 1` en el cuerpo cambia el PARÁMETRO, no el miembro (el miembro ya nació con la lista de inicialización). Fix: ternario en la lista `den(den == 0 ? 1 : den)` (Sesión 13)
 - [ ] `std::string = 0` → crash: un string no se inicializa como número (Sesión 3)
 - [ ] Método de cálculo que imprime (cout dentro de area()/perimetro()): mezcla responsabilidades; el método solo calcula y devuelve, quien imprime es el llamador (Sesión 14, Proyecto4; misma lección del `\n` en operator<< de la Fraccion)
