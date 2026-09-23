@@ -611,6 +611,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 9 | 2026-09-22 | 🏆 Proyecto 2 (calculadora): funciones, validación de cero (división y módulo), código muerto eliminado. **Fase 2 completada** | ✅ Completado |
 | 10 | 2026-09-22 | Fase 3 M1: clases, encapsulamiento (`private`/`public`), `this`, métodos `const` (`CuentaBancaria`, `Persona`). **M1 completado** | ✅ Completado |
 | 11 | 2026-09-22 | Fase 3 M2: constructores (por defecto/con parámetros), lista de inicialización, destructor, orden construcción/destrucción, `fstream` (`ofstream`/`ifstream`), clase `Archivo` con RAII. Mini-tema: `enum class` (duda de prerrequisitos saldada). Regla de comunicación "no marica" documentada en AGENTS.md. **M2 completado** | ✅ Completado |
+| 12 | 2026-09-23 | Repaso Fase 3 M2: scope y orden de vida de objetos (constructor/destructor, inversión de orden), lista de inicialización vs asignación en el cuerpo, miembro `const` y error "no match for operator=". MiniReto.cpp: clase `Persona` con `const string nombre`, getter público, verificación desde `main` compilada con `-Wall -Wextra` (exit 0). Checkpoint 2/3: quedó flojo "const vs private" y "asignar vs inicializar" → marcado en 🔁 | 🟡 Por validar |
 
 ---
 
@@ -641,6 +642,7 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 _(Ir llenando con los temas débiles marcados en cada checkpoint.)_
 
 - [x] `const` con referencias: confundido en VC3, validado con demo en vivo y reforzado en Fase 1 (Sesiones 4-5)
+- [ ] `const` vs `private` (dos ejes distintos: acceso vs momento de asignación) y asignación en el cuerpo vs inicialización en la lista: explicado en Sesión 12, Juan dijo entender pero no comprobó con código (declinó el ejercicio). Retomar con un mini-ejercicio cuando salga el tema
 
 ---
 

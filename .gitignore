@@ -1,3 +1,5 @@
 output/
 *.o
 *.out
+# binarios de pruebas en Pruebas Opencode
+Pruebas Opencode/MiniReto
