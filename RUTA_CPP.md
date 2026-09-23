@@ -20,14 +20,14 @@
 | 1 | C++ desde C | ✅ Completado (2026-09-22) |
 | 2 | Funciones C++ | ✅ Completado (2026-09-22) |
 | 3 | POO básica: clases y objetos | ✅ Completado (2026-09-23) |
-| 4 | Herencia y polimorfismo | ⬜ Pendiente |
+| 4 | Herencia y polimorfismo | ✅ Completado (2026-09-23) |
 | 5 | Memoria y RAII | ⬜ Pendiente |
 | 6 | STL | ⬜ Pendiente |
 | 7 | Plantillas | ⬜ Pendiente |
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V, 1, 2 y 3 completadas. Siguiente: **Fase 4, Módulo 1 — Herencia**.
+**Progreso orientativo:** ✅ Fases V, 1, 2, 3 y 4 completadas. Siguiente: **Fase 5, Módulo 1 — `new`/`delete` y fugas**.
 
 ---
 
@@ -290,7 +290,7 @@ Unir datos y comportamiento en un tipo definido por el usuario.
 
 ---
 
-# ⬜ FASE 4 — HERENCIA Y POLIMORFISMO
+# ✅ FASE 4 — HERENCIA Y POLIMORFISMO (completada 2026-09-23)
 
 ## Objetivo
 
@@ -299,41 +299,41 @@ Modelar jerarquías de tipos y despachar métodos dinámicamente.
 ## Módulo 1 — Herencia
 
 ### Conceptos
-- [ ] Clases base y derivadas
-- [ ] `public` / `protected` / `private` herencia
-- [ ] Constructores en herencia
-- [ ] Object slicing (🐛)
+- [x] Clases base y derivadas
+- [x] `public` / `protected` / `private` herencia
+- [x] Constructores en herencia
+- [x] Object slicing (🐛)
 
 ### Ejercicios
-- [ ] Clase `Empleado` → `Gerente`
-- [ ] Constructor de base llamado desde derivada
+- [x] Clase `Empleado` → `Gerente`
+- [x] Constructor de base llamado desde derivada
 
 ### Checkpoint
-- [ ] ¿Qué se hereda y qué no?
-- [ ] ¿Qué mal hace el slicing y cómo evitarlo?
+- [x] ¿Qué se hereda y qué no?
+- [x] ¿Qué mal hace el slicing y cómo evitarlo?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-23) — Sesión 14
 
 ## Módulo 2 — Polimorfismo
 
 ### Conceptos
-- [ ] Métodos `virtual`
-- [ ] Destructor virtual (🐛)
-- [ ] Clases abstractas y métodos puros `= 0`
-- [ ] Despacho dinámico
+- [x] Métodos `virtual`
+- [x] Destructor virtual (🐛)
+- [x] Clases abstractas y métodos puros `= 0`
+- [x] Despacho dinámico
 
 ### Ejercicios
-- [ ] Jerarquía `Figura` → `Circulo`, `Rectangulo`
-- [ ] Contenedor de punteros/refs con polimorfismo
+- [x] Jerarquía `Figura` → `Circulo`, `Rectangulo`
+- [x] Contenedor de punteros/refs con polimorfismo
 
 ### Checkpoint
-- [ ] ¿Qué pasa sin destructor virtual?
-- [ ] ¿Cuándo un método debe ser virtual?
+- [x] ¿Qué pasa sin destructor virtual?
+- [x] ¿Cuándo un método debe ser virtual?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ✅ Completado (2026-09-23) — Sesión 14
 
 ### 🏆 Proyecto de fase
-- [ ] Sistema de figuras con área/perímetro polimórficos
+- [x] Sistema de figuras con área/perímetro polimórficos (Proyecto4.cpp: Figura abstracta, Circulo, Rectangulo, override, destructor virtual; verificado: 12.5664/12.5664 y 12/14)
 
 ---
 
@@ -613,6 +613,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 11 | 2026-09-22 | Fase 3 M2: constructores (por defecto/con parámetros), lista de inicialización, destructor, orden construcción/destrucción, `fstream` (`ofstream`/`ifstream`), clase `Archivo` con RAII. Mini-tema: `enum class` (duda de prerrequisitos saldada). Regla de comunicación "no marica" documentada en AGENTS.md. **M2 completado** | ✅ Completado |
 | 12 | 2026-09-23 | Repaso Fase 3 M2: scope y orden de vida de objetos (constructor/destructor, inversión de orden), lista de inicialización vs asignación en el cuerpo, miembro `const` y error "no match for operator=". MiniReto.cpp: clase `Persona` con `const string nombre`, getter público, verificación desde `main` compilada con `-Wall -Wextra` (exit 0). Checkpoint 2/3: quedó flojo "const vs private" y "asignar vs inicializar" → marcado en 🔁 | 🟡 Por validar |
 | 13 | 2026-09-23 | Fase 3 M3: sobrecarga de operadores (`operator+`, `*`, `==`), funciones `friend` (`operator<<` con encadenamiento), constructor de copia vs `operator=` (demo Copia.cpp, predicción 4/4 en Prediccion.cpp). 🏆 Proyecto 3 (Complejo con +,\*,\,==,<<) y 🏆 Proyecto 4 (Fraccion con mcd, simplificación, signo, +,-,\*,/,\,==,<<). 🐛 shadowing detectado y corregido: `den = 1` en cuerpo modificaba el parámetro, no el miembro; fix con ternario en lista de inicialización. **Fase 3 completada** | ✅ Completado |
+| 14 | 2026-09-23 | Fase 4 M1+M2: herencia (`public`/`protected`), constructores en cadena, object slicing (demo 48 vs 40 bytes), `virtual` y despacho dinámico (demo: sin virtual → "Figura generica 0"; con virtual → áreas reales), destructor virtual (demo Base/Derivada: sin virtual el ~Derivada no corre), clases abstractas, `override`, for basado en rango y `vector` (adelanto Fase 6). Ejercicios: CuentaBancaria→CuentaAhorros (Herencia.cpp), Empleado→Gerente (ejemplo). 🏆 Proyecto de fase: sistema de figuras (Proyecto4.cpp) aprobado. Checkpoints M1 y M2 en voz de Juan. Regla de tutoría: NO modificar el código del estudiante sin permiso (jalón de orejas registrado). **Fase 4 completada** | ✅ Completado |
 
 ---
 
@@ -632,6 +633,8 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] Cambiar el vector durante la iteración → iterador inválido
 - [ ] Shadowing: parámetro del constructor con el mismo nombre del miembro → `den = 1` en el cuerpo cambia el PARÁMETRO, no el miembro (el miembro ya nació con la lista de inicialización). Fix: ternario en la lista `den(den == 0 ? 1 : den)` (Sesión 13)
 - [ ] `std::string = 0` → crash: un string no se inicializa como número (Sesión 3)
+- [ ] Método de cálculo que imprime (cout dentro de area()/perimetro()): mezcla responsabilidades; el método solo calcula y devuelve, quien imprime es el llamador (Sesión 14, Proyecto4; misma lección del `\n` en operator<< de la Fraccion)
+- [ ] Método que mezcla estilo imperativo y funcional: `saldo += monto` + devolver copia (depositar de Herencia.cpp) → comportamiento doble y confuso; elegir uno: void que muta this, o const que devuelve nuevo (Sesión 14)
 - [ ] `find()` no devuelve bool: devuelve posición o `npos`; `npos == npos` es siempre true (Sesión 3)
 - [ ] `*p = &x;` con `p = nullptr`: mezclar asignación al puntero (`p = &x`) con la del valor apuntado (`*p = ...`) → error de tipos y segfault (Sesión 4)
 - [ ] `else` pegado al último `if` de una cadena → mensajes contradictorios (Sesión 3)
@@ -653,3 +656,4 @@ _(Ir llenando con los temas débiles marcados en cada checkpoint.)_
 _(Registrar aquí cualquier tema trabajado fuera de orden y su justificación.)_
 
 - [x] `enum class` (C++ moderno): explicado en Sesión 11. Juan dudó si `union`/`enum` eran prerrequisito del Módulo 2; se aclaró que ya los domina de C y se mostró la única diferencia importante de C++ (ámbito y tipado fuerte). No bloquea ningún módulo.
+- [x] `for` basado en rango (`for (auto* f : figuras)`) y `std::vector` (push_back, size, recorrido): salieron natural en la Sesión 14 (Fase 4, proyecto de figuras) y se explicaron. Adelanto de la Fase 6; se profundizará allá con algoritmos.

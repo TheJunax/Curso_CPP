@@ -1,41 +1,57 @@
 #include <iostream>
+
 using namespace std;
 
-class Punto {
+class Complejos{
+
 public:
-    Punto(int x, int y) : x(x), y(y) {}
+    Complejos(double a, double bi) : a(a), bi(bi){}
 
-    // Sobrecarga de operator+ como METODO MIEMBRO:
-    // p1 + p2  ->  p1.operator+(p2)
-    Punto operator+(const Punto& otro) const {
-        return Punto(x + otro.x, y + otro.y);
+    Complejos operator+(const Complejos &otro) const {
+        return Complejos(a + otro.a, bi + otro.bi);
     }
 
-    // Sobrecarga de operator==
-    // p1 == p2  ->  p1.operator==(p2)
-    bool operator==(const Punto& otro) const {
-        return x == otro.x && y == otro.y;
+    Complejos operator*(const Complejos &otro) const {
+        double nuevoA = (a*otro.a)-(bi*otro.bi);
+        double nuevoB = (a*otro.bi)+(bi*otro.a);
+        return Complejos(nuevoA , nuevoB);
     }
 
-    // Getter para poder imprimir desde afuera
-    int getX() const { return x; }
-    int getY() const { return y; }
+    bool operator==(const Complejos &otro) const {
+        return a == otro.a && bi == otro.bi; 
+    }
 
-private:
-    int x, y;
+    friend ostream &operator<<(ostream &os, const Complejos &c);
+
+    private:
+        double a;
+        double bi;
 };
 
-int main() {
-    Punto a(2, 3);
-    Punto b(4, 5);
+ostream& operator<<(ostream &os, const Complejos &c){
+    os << c.a << " + " << c.bi << "i";
+    return os;
+}
 
-    Punto c = a + b;   // el compilador lo traduce: a.operator+(b)
-    cout << "c = (" << c.getX() << ", " << c.getY() << ")\n";
+int main(){
+    Complejos a(5,7);
+    Complejos b(4,6);
+
+    Complejos c = a + b;
+    cout << c << "\n";
+
+    Complejos d = a * b;
+    cout << d << "\n";
+
+    cout << c << " y " << d << "\n";
 
     if (a == b)
         cout << "a y b son iguales\n";
     else
         cout << "a y b son distintos\n";
 
+    
+
     return 0;
+
 }

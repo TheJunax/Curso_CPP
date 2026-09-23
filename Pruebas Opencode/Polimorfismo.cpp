@@ -1,12 +1,13 @@
 #include <iostream>
-#include <vector>
-
 using namespace std;
 
 class Figura {
 public:
-    virtual double area() const =0;
-    virtual double perimetro() const =0;
+    virtual double area() const {   // LA PALABRA MAGICA: virtual
+        cout << "[Figura generica] ";
+        return 0;
+    }
+    // Destructor virtual: clave cuando hay herencia (lo vemos ya)
     virtual ~Figura() = default;
 };
 
@@ -14,12 +15,8 @@ class Circulo : public Figura {
 public:
     Circulo(double r) : r(r) {}
     double area() const override {
-        cout << "Area Circulo: ";
+        cout << "[Circulo] ";
         return 3.1416 * r * r;
-    }
-    double perimetro() const override{
-        cout << "Perimetro Circulo: ";
-        return 2 * 3.1416 * r;
     }
 private:
     double r;
@@ -29,22 +26,23 @@ class Rectangulo : public Figura {
 public:
     Rectangulo(double b, double h) : b(b), h(h) {}
     double area() const override {
-        cout << "Area Rectangulo: ";
+        cout << "[Rectangulo] ";
         return b * h;
-    }
-    double perimetro() const override{
-        cout << "Perimetro Rectangulo: ";
-        return 2 *(b+h);
     }
 private:
     double b, h;
 };
 
-int main(){
+int main() {
     Circulo c(2.0);
-    Rectangulo r(3,4);
+    Rectangulo r(3.0, 4.0);
 
     Figura* figuras[] = { &c, &r };
+
+    cout << "--- CON virtual (despacho dinamico) ---\n";
     for (auto* f : figuras)
-        cout << f->area() << "\n" << f->perimetro() << "\n";
+        cout << "area: " << f->area() << "\n";
+    //  ^ f es Figura*, pero ahora SI consulta al objeto real detras
+
+    return 0;
 }
