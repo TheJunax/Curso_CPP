@@ -37,6 +37,24 @@ public:
         }
     }
 
+    void insertarOrdenado(int valor){
+        if(cabeza == nullptr || valor <= cabeza->dato){
+            Nodo *nuevo = new Nodo(valor);
+            nuevo->siguiente = cabeza;
+            cabeza = nuevo;
+        }else{
+        Nodo* anterior = cabeza;
+        Nodo* actual = cabeza->siguiente;
+        while(actual != nullptr && actual->dato < valor ){
+            anterior = actual;
+            actual = actual->siguiente;
+        }
+        Nodo *nuevo = new Nodo(valor);
+        nuevo->siguiente = actual;
+        anterior->siguiente = nuevo;
+        }
+    }
+
     // Recorre e imprime los elementos.
     void imprimir() const {
         Nodo *actual = cabeza;
@@ -101,23 +119,11 @@ public:
 };
 
 int main() {
-        Lista l;
-    l.insertarInicio(3);
-    l.insertarInicio(7);
-    l.insertarInicio(1);
-    l.insertarFinal(5);
-
-    std::cout << l.buscar(7) << "\n";    // 1
-    std::cout << l.buscar(99) << "\n";   // 0
-
-    l.eliminar(3);    // borrar del medio
-    l.imprimir();     // 1 -> 7 -> 5 -> null
-    std::cout << "\n";
-    l.eliminar(1);    // borrar la cabeza
-    l.imprimir();     // 7 -> 5 -> null
-    std::cout << "\n";
-
-    l.eliminar(99);   // no existe
-    l.imprimir();     // igual: 7 -> 5 -> null
+    Lista l;
+    l.insertarOrdenado(5);
+    l.insertarOrdenado(2);
+    l.insertarOrdenado(8);
+    l.insertarOrdenado(3);
+    l.imprimir();    // esperado: 2 -> 3 -> 5 -> 8 -> null    
     return 0;
 }
