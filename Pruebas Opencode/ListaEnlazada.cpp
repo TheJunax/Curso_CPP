@@ -23,6 +23,20 @@ public:
         //       y luego mueve la cabeza al nuevo nodo.
     }
 
+    void insertarFinal(int valor){
+        if(cabeza == nullptr){
+            Nodo *nuevo = new Nodo(valor);
+            cabeza = nuevo;
+            
+        }else{
+            Nodo* ultimo = cabeza;
+            while(ultimo->siguiente != nullptr){
+                ultimo = ultimo->siguiente;
+            }
+            ultimo->siguiente = new Nodo(valor);
+        }
+    }
+
     // Recorre e imprime los elementos.
     void imprimir() const {
         Nodo *actual = cabeza;
@@ -52,6 +66,7 @@ int main() {
     l.insertarInicio(3);
     l.insertarInicio(7);
     l.insertarInicio(1);
+    l.insertarFinal(5);
     l.imprimir();   // esperado: 1 -> 7 -> 3 -> nullptr
 
     return 0;
