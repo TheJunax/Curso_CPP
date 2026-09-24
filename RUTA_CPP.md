@@ -21,13 +21,13 @@
 | 2 | Funciones C++ | ✅ Completado (2026-09-22) |
 | 3 | POO básica: clases y objetos | ✅ Completado (2026-09-23) |
 | 4 | Herencia y polimorfismo | ✅ Completado (2026-09-23) |
-| 5 | Memoria y RAII | 🟢 En progreso (M1, M2 y M3 ✅; falta 🏆 proyecto `Matriz`) |
+| 5 | Memoria y RAII | ✅ Completado (2026-09-24) |
 | 6 | STL | ⬜ Pendiente |
 | 7 | Plantillas | ⬜ Pendiente |
 | 8 | Excepciones | ⬜ Pendiente |
 | 9 | EDA en C++ | ⬜ Pendiente |
 
-**Progreso orientativo:** ✅ Fases V, 1, 2, 3 y 4 completadas. Fase 5 en progreso: M1, M2 y M3 ✅; falta únicamente el 🏆 proyecto `Matriz`.
+**Progreso orientativo:** ✅ Fases V, 1, 2, 3, 4 y 5 completadas. Siguiente: Fase 6 (STL).
 
 ---
 
@@ -391,10 +391,12 @@ Entender el ciclo de vida de los recursos en C++ y delegarlo a la STL.
 - [x] ¿Qué pasa si la copia es superficial?
 - [x] ¿Qué problemas causa un destructor mal hecho?
 
-**Estado:** 🟢 En progreso (falta: 🏆 proyecto `Matriz`)
+**Estado:** ✅ Completado (2026-09-24) — Sesión 16 (vector/reubicación) + 17 (proyecto Matriz)
 
 ### 🏆 Proyecto de fase
-- [ ] `Matriz` dinámica con RAII y regla de cinco
+- [x] `Matriz` dinámica con RAII y regla de cinco
+
+**Estado Fase 5:** ✅ Completada (2026-09-24) — Proyecto Matriz (Proyecto5.cpp): regla de cinco completa (moves con `noexcept`), bloque plano `new double[f*c]{}`, `operator()` con referencia, `tamF()/tamC()`, `operator<<` amigo. Verificado: copia profunda (`z(0,0)=999` vs `m(0,0)=4.1`), move roba y anula donante (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores.
 
 ---
 
@@ -616,6 +618,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 14 | 2026-09-23 | Fase 4 M1+M2: herencia (`public`/`protected`), constructores en cadena, object slicing (demo 48 vs 40 bytes), `virtual` y despacho dinámico (demo: sin virtual → "Figura generica 0"; con virtual → áreas reales), destructor virtual (demo Base/Derivada: sin virtual el ~Derivada no corre), clases abstractas, `override`, for basado en rango y `vector` (adelanto Fase 6). Ejercicios: CuentaBancaria→CuentaAhorros (Herencia.cpp), Empleado→Gerente (ejemplo). 🏆 Proyecto de fase: sistema de figuras (Proyecto4.cpp) aprobado. Checkpoints M1 y M2 en voz de Juan. Regla de tutoría: NO modificar el código del estudiante sin permiso (jalón de orejas registrado). **Fase 4 completada** | ✅ Completado |
 | 15 | 2026-09-23 | Fase 5 (continuación de la sesión 14, mismo día): M1 `new`/`delete`/`new[]`/`delete[]` (Memoria1.cpp, orden inverso de destrucción), valgrind, reto Fuga.cpp corregido (`delete` → `delete[]`: warning `-Wmismatched-new-delete` + crash `munmap_chunk invalid pointer`). ✅ M1. M2 RAII: smart pointers — `unique_ptr` (move, sin copia, destrucción automática, demo SmartPointers.cpp + valgrind 0), `shared_ptr`/`weak_ptr` (use_count, make_shared, demo en chat), reto: Fuga.cpp reescrito sin `new`/`delete` (unique_ptr + make_unique + parámetros por defecto; valgrind `All heap blocks were freed`). ✅ M2. M3: copia superficial vs profunda (BufferMal doble free con AddressSanitizer vs BufferBien valgrind limpio), regla de tres/cinco, reto RetoReglaCinco.cpp (move ctor con bug `datos(new int (n))` → 12 bytes definitivamente perdidos + bloque de 1 int; corregido a robo directo `datos(otro.datos)` → 5 allocs/5 frees). Checkpoints M1, M2 y M3 en voz de Juan. Regla de tutoría reforzada: AVISAR antes de crear archivos y no tocar sus archivos sin autorización. Duda resuelta: el hash se ve en Fase 6 (`std::unordered_map`) y EDA. **Fase 5 M1 y M2 ✅, M3 a medias** | ✅ Completado |
 | 16 | 2026-09-24 | Fase 5 M3 (cierre): `std::vector` y reubicación de memoria. Demo VectorReubicacion.cpp (size vs capacity, crecimiento 1→2→4→8→16, O(1) amortizado). Reto AtrapaVector.cpp: clase Contador contadora de copias/movimientos dentro de un vector. Descubrimiento clave: con move `noexcept` el vector REUBICA MOVIENDO (0 copias); sin `noexcept` el vector copia todos los elementos (garantía fuerte de excepción, `move_if_noexcept`). Conexión con RetoReglaCinco: el vector es el juez de la regla de cinco. 🐛 copy ctor sin `const` corregido a `Contador(const Contador&)`. Checkpoint 3/3 aprobado (por qué copia sin noexcept / const faltante / por qué 10 destructores al final). **M3 ✅ — falta solo el 🏆 proyecto `Matriz`** | ✅ Completado |
+| 17 | 2026-09-24 | 🏆 Proyecto de fase: `Matriz` dinámica (Proyecto5.cpp). Decision de diseño discutida: bloque plano unico `new double[f*c]{}` (como hace std::vector) vs doble puntero vs vector miembro. Iteraciones: (1) parametro `datos` sobrando en el constructor (warning -Wunused-parameter) y copy ctor/asignacion que alocaban sin copiar contenido → corregido con bucle; (2) 🐛 shadowing en `operator()(int filas, int c)` — funcionaba por casualidad pero confundia al llamar → renombrado a `f`; (3) 🐛 `cout << "\n"` dentro de `operator<<` (era `os`) → mezcla de streams, corregido; (4) move assign sin `noexcept` → corregido; (5) demo final: copia profunda `z(0,0)=999 | m(0,0)=4.1`, move roba (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores. **Fase 5 COMPLETADA** | ✅ Completado |
 
 ---
 
@@ -635,6 +638,8 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] Cambiar el vector durante la iteración → iterador inválido
 - [ ] Constructor de copia sin `const`: `Contador(Contador &otro)` no puede copiar desde objetos `const`; debe ser `Contador(const Contador &otro)`. No pica hoy, pica cuando el vector/STL necesite copiar desde algo const (Sesión 16, AtrapaVector)
 - [ ] Move constructor SIN `noexcept` dentro de `std::vector` → el vector COPIA en las reubicaciones (garantía fuerte de excepción, `move_if_noexcept`). Con `noexcept` → mueve O(1). El `noexcept` del move es la señal de rendimiento (Sesión 16, AtrapaVector)
+- [ ] `cout` dentro de `operator<<` que recibe `os`: el salto de línea se va al stream equivocado (pantalla en vez del destino). Dentro de un `operator<<` TODO sale por `os` (Sesión 17, Proyecto5; misma lección del método que calcula e imprime, Sesión 14)
+- [ ] Parámetro de constructor que sobra y hace shadowing con el miembro: `Matriz(int filas, int col, double* datos)` con `datos` sin usar → warning `-Wunused-parameter`; el parámetro debe eliminarse (Sesión 17, Proyecto5)
 - [ ] `new int (n)` vs `new int[n]`: los PARÉNTESIS crean UN solo int con valor `n`; los CORCHETES crean un array de `n`. Confundirlos en un move ctor → bloque del tamaño equivocado (Sesión 15, RetoReglaCinco)
 - [ ] Move constructor que ALOCA en vez de ROBAR: el move debe ser cero asignaciones de memoria; si el donante se anula sin robar/liberar su bloque → fuga silenciosa (12 bytes definitivamente perdidos, Sesión 15)
 - [ ] Shadowing: parámetro del constructor con el mismo nombre del miembro → `den = 1` en el cuerpo cambia el PARÁMETRO, no el miembro (el miembro ya nació con la lista de inicialización). Fix: ternario en la lista `den(den == 0 ? 1 : den)` (Sesión 13)

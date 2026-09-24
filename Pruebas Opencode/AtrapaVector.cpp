@@ -14,7 +14,7 @@ public:
         cout << "Copia\n";
     } 
 
-    Contador(Contador&& otro) : n(otro.n){
+    Contador(Contador&& otro)noexcept : n(otro.n){
         cout << "Mueve y roba\n";
         otro.n =0;
     }
