@@ -631,7 +631,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 
 ### Conceptos
 - [ ] Lista enlazada simple: clase Nodo, cabecera/cola, inserción (cabeza/final/entre nodos), búsqueda, borrado
-      - ✅ Cubierto (Sesión 20): clase `Nodo` + clase `Lista` con `cabeza`, inserción **al inicio** (`insertarInicio`), recorrido (`imprimir`), destructor RAII. Falta: inserción al final/entre nodos, búsqueda, borrado.
+      - ✅ Cubierto (Sesión 20): `insertarInicio`, `insertarFinal`, `buscar`, `eliminar` (casos cabeza/medio/final/no-existe), destructor RAII. Falta: inserción **entre nodos** (inserción ordenada).
 - [ ] Lista ordenada
 - [ ] Lista doblemente enlazada
 - [ ] Lista circular
@@ -639,14 +639,14 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 - [ ] `std::list` de la STL (comparación)
 
 ### Ejercicios
-- [ ] Implementar `ListaEnlazada` con RAII y smart pointers — en progreso (Sesión 20): versión con punteros crudos + destructor RAII lista (ListaEnlazada.cpp, valgrind 0 leaks). Falta refactor a `unique_ptr`.
+- [ ] Implementar `ListaEnlazada` con RAII y smart pointers — ✅ ListaEnlazada.cpp en mano: punteros crudos + destructor RAII (insertarInicio/Final, buscar, eliminar, imprimir; valgrind 0 leaks 0 errores). Pendiente el refactor a `unique_ptr`.
 - [ ] `ListaDoble` con inserción/borrado en ambos extremos
 
 ### Checkpoint
 - [ ] ¿Cuándo usar lista vs `std::vector`?
 - [ ] Complejidad de inserción, búsqueda y borrado
 
-**Estado:** 🟢 En progreso (Sesión 20)
+**Estado:** 🟢 En progreso (Sesión 20: núcleo de la lista simple completado)
 
 ## Módulo 2 — Pilas y colas (Caps. 11-12)
 
@@ -808,6 +808,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 18 | 2026-09-24 | Inicio Fase 6 (STL): contenedores + iteradores, demo StlDemo1_Map.cpp (`std::map`, `find`/`end`, `it->first/second`, for-rango, orden automático por clave, trampa de `operator[]`). Reto lanzado: Agenda con `map<string,string>` (menú agregar/buscar/mostrar/eliminar) — **pendiente de resolver**. Ajuste de la ruta con el libro Joyanes (caps 10-18): añadida tabla 🗺️ de correspondencia; Fase 6 reestructurada en 4 módulos (Cap 15: iteradores/secuenciales, asociativos, adaptadores, algoritmos); Fase 9 reestructurada en 7 módulos alineados a los caps (listas, pilas/colas, montículos, hash, BST, AVL/árboles B, grafos) e incorporados los caps 13, 14 y 17 que faltaban; Fase 7 M2 marcado OPCIONAL (C++20, fuera del libro). Decisión de alcance tomada con Juan vía preguntas. Además, a raíz de que el profesor pidió centrarse en estructuras de datos, se añadió la sección 🎯 ORDEN RECOMENDADO DE ESTUDIO: Fase 6 (STL express) → Fase 7 (Plantillas express) → Fase 9 (EDA, el grueso) → Fase 8 (Excepciones, al final). Juan preguntó por el `trie`; se explicó qué es y se aclaró que NO está dentro de los árboles B (estructuras distintas); quedó agendado como tema extra para después de árboles (🧭 ADELANTOS) | ✅ Completado |
 | 19 | 2026-09-24 | Fase 6 M2 (asociativos): reto de la **Agenda con `map<string,string>`** completado (Map.cpp). Funciones `agregarContacto`, `buscarContacto` (find/end), `mostrarContactos` (iteradores), `eliminarContacto` (find + erase), menú `do-while`+`switch`. 🐛 detectado y corregido: en el `case 1` leía el teléfono en `nombre` (`cin >> nombre` dos veces) → contacto con nombre = teléfono y teléfono vacío. Corregido a `cin >> telefono`. Mejora aplicada: `const`-correctness en `buscarContacto` y `mostrarContactos`. Verificado: flujo completo agregar/mostrar/buscar existente/buscar inexistente/eliminar/mostrar, compila limpio y valgrind 0 leaks. **M2 cerrado:** checkpoint aprobado 2/2 (map vs unordered_map; find vs operator[]) y ejercicio de frecuencias hecho por el tutor en Frecuencias.cpp a petición de Juan (ya dominaba el tema). Explicados express `set`/`multiset`/`multimap`. | ✅ Completado |
 | 20 | 2026-09-24 | **Arranque de EDA (Fase 9 M1, Cap. 10 — Listas).** Decisión de Juan (vía pregunta): saltar directo a EDA; Fase 6 M1/M3/M4 y Fase 7 quedan just-in-time. Concepto de lista enlazada vs array (inserción O(1) al inicio, búsqueda O(n), sin acceso aleatorio). Puente C→C++: `struct Nodo` con `malloc` → `class Nodo` con constructor y `new`. Esqueleto `ListaEnlazada.cpp` con clase `Nodo` + clase `Lista` (`cabeza`) y 3 TODO. Juan implementó `insertarInicio`, `imprimir` y el destructor RAII. 🐛 en el primer intento del destructor: sin `while`, borraba `temp` (2º nodo) en vez de `cabeza`, y leía `temp->siguiente` **después** del `delete` → *Invalid read* + 32 bytes fugados. Corregido con el `while` y el orden correcto (leer siguiente → borrar → avanzar). Verificado: `1-> 7-> 3-> null`, compila limpio, valgrind 0 leaks / 0 errores. | ✅ Completado |
+| 21 | 2026-09-24 | Fase 9 M1 (Cap. 10): **núcleo de la lista enlazada simple completado** (ListaEnlazada.cpp). `insertarInicio` ✓, `insertarFinal` ✓ (tras 🐛 self-loop en lista vacía corregido), `buscar` ✓ (quitarle el cout: el que busca no imprime), `eliminar` ✓ — el reto gordo, resuelto paso a paso tras 4 intentos: se corrigieron (1) falta de `return true` en caso cabeza, (2) orden en condición del while (`actual != nullptr` ANTES de `actual->dato` — corto-circuito del `&&`), (3) línea trampa `anterior->siguiente = nullptr` que cortaba toda la lista y (4) `return false` en vez de `true` al borrar con éxito. Destructor RAII ✓. Verificado: flujo completo, valgrind 0 leaks / 0 errores, sin segfaults. Método usado: construcción guiada paso a paso (guarda → caso cabeza → paseo dos punteros → desenganche → delete). | ✅ Completado |
 
 ---
 
@@ -835,6 +836,8 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] Shadowing: parámetro del constructor con el mismo nombre del miembro → `den = 1` en el cuerpo cambia el PARÁMETRO, no el miembro (el miembro ya nació con la lista de inicialización). Fix: ternario en la lista `den(den == 0 ? 1 : den)` (Sesión 13)
 - [ ] `std::string = 0` → crash: un string no se inicializa como número (Sesión 3)
 - [ ] Destructor de lista enlazada mal escrito: (1) sin `while` solo libera un nodo; (2) borrar `temp` (el 2º) en vez de `cabeza` (el 1º) fuga el primero; (3) leer `temp->siguiente` DESPUÉS del `delete` = *use-after-free* (valgrind: Invalid read). Regla: **leer el siguiente → borrar el actual → avanzar**. (Sesión 20, ListaEnlazada.cpp)
+- [ ] Self-loop en lista enlazada: `nuevo->siguiente = cabeza` cuando `cabeza` ya es `nuevo` → bucle infinito silencioso (timeout 124). El constructor ya inicializa `siguiente(nullptr)`; esa línea SOBRA (Sesión 20, ListaEnlazada.cpp)
+- [ ] `eliminar` de lista enlazada — 4 errores clásicos: (1) falta `return true` tras borrar la cabeza → sigue caminando con lista modificada; (2) `actual->dato != valor && actual != nullptr` lee el dato antes de validar null → el orden debe ser `actual != nullptr && actual->dato != valor` (corto-circuito del `&&`); (3) `anterior->siguiente = nullptr` después del desenganche correcto → corta toda la lista restante; (4) `return false` al haber borrado con éxito. (Sesión 21, ListaEnlazada.cpp)
 - [ ] Método de cálculo que imprime (cout dentro de area()/perimetro()): mezcla responsabilidades; el método solo calcula y devuelve, quien imprime es el llamador (Sesión 14, Proyecto4; misma lección del `\n` en operator<< de la Fraccion)
 - [ ] Método que mezcla estilo imperativo y funcional: `saldo += monto` + devolver copia (depositar de Herencia.cpp) → comportamiento doble y confuso; elegir uno: void que muta this, o const que devuelve nuevo (Sesión 14)
 - [ ] `find()` no devuelve bool: devuelve posición o `npos`; `npos == npos` es siempre true (Sesión 3)
