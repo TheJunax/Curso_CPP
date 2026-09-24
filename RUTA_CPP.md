@@ -400,41 +400,100 @@ Entender el ciclo de vida de los recursos en C++ y delegarlo a la STL.
 
 ---
 
-# ⬜ FASE 6 — STL
+# 🗺️ CORRESPONDENCIA CON EL LIBRO (Joyanes, "Estructuras de Datos en C++")
+
+La ruta desde la Fase 6 en adelante está alineada con los capítulos del PDF de la Etapa 3.
+
+| Cap. | Tema del libro | Dónde en la ruta |
+|---|---|---|
+| 5 | Plantillas (templates) | Fase 7 |
+| 6 | Análisis y eficiencia de algoritmos (notación O) | Transversal — se aplica en Fase 9 |
+| 7 | Algoritmos recursivos | Transversal — base para árboles (Fase 9 M5-M7) |
+| 8 | Ordenación y búsqueda | Fase 6 M4 (`<algorithm>`) + Fase 9 M3 (HeapSort) |
+| 10 | Listas | Fase 9 M1 |
+| 11 | Pilas | Fase 9 M2 |
+| 12 | Colas | Fase 9 M2 |
+| 13 | Colas de prioridad y montículos | Fase 9 M3 |
+| 14 | Tablas de dispersión / hash | Fase 9 M4 |
+| 15 | STL | Fase 6 |
+| 16 | Árboles binarios y BST | Fase 9 M5 |
+| 17 | Árboles equilibrados (AVL) y árboles B | Fase 9 M6 |
+| 18 | Grafos | Fase 9 M7 |
+
+> **Nota:** los capítulos 6 (complejidad/notación O), 7 (recursión) y 8 (ordenación/búsqueda) no tienen fase propia porque son transversales; se cubren dentro de las fases 6 y 9. Si en algún momento se necesita repasarlos de forma aislada, se registran en 🧭 ADELANTOS o 🔁 REPASOS.
+
+---
+
+# ⬜ FASE 6 — STL (libro: Cap. 15, p. 433)
 
 ## Objetivo
 
 Programar con los contenedores y algoritmos estándar sin reinventar la rueda.
 
-## Módulo 1 — Contenedores
+## Módulo 1 — Iteradores y contenedores secuenciales
 
 ### Conceptos
-- [ ] `std::vector`
-- [ ] `std::string`
-- [ ] `std::map` / `std::unordered_map`
-- [ ] `std::set`
-- [ ] `std::stack` / `std::queue`
-- [ ] Iteradores
+- [ ] Iteradores: `begin()`/`end()`, `++`, `*`, y sus categorías (entrada, salida, forward, bidireccional, acceso aleatorio)
+- [ ] `std::vector` (consolidación de lo visto en Fase 5)
+- [ ] `std::string` (repaso express de VC2)
+- [ ] `std::list` (lista doblemente enlazada de la STL)
+- [ ] `std::deque` (doble cola)
+- [ ] ¿Cuándo `vector`, cuándo `list`, cuándo `deque`?
 
 ### Ejercicios
-- [ ] Agenda con `map<string,string>`
-- [ ] Ordenar y buscar en `vector`
+- [ ] Recorrer y modificar un `vector` con iteradores
+- [ ] Comparar `vector` vs `list` al insertar/borrar al inicio
 
 ### Checkpoint
-- [ ] ¿Cuándo `map` y cuándo `unordered_map`?
 - [ ] ¿Qué es un iterador y para qué sirve?
+- [ ] ¿Por qué el iterador de `vector` es de acceso aleatorio y el de `list` no?
 
 **Estado:** ⬜ Pendiente
 
-## Módulo 2 — Algoritmos
+## Módulo 2 — Contenedores asociativos
 
 ### Conceptos
-- [ ] `<algorithm>`: `sort`, `find`, `transform`, `accumulate`
+- [ ] `std::set` / `std::multiset`
+- [ ] `std::map` / `std::multimap`
+- [ ] `std::unordered_map` / `std::unordered_set` (hash)
+- [ ] ¿Cuándo `map` y cuándo `unordered_map`?
+
+### Ejercicios
+- [ ] Agenda con `map<string,string>` (insertar, buscar con `find`, mostrar ordenado, eliminar con `erase`)
+- [ ] Contar frecuencias con `unordered_map`
+
+### Checkpoint
+- [ ] ¿Cuándo `map` y cuándo `unordered_map`?
+- [ ] ¿Por qué para buscar se usa `find` y no `operator[]`?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 3 — Adaptadores de contenedores
+
+### Conceptos
+- [ ] `std::stack`
+- [ ] `std::queue`
+- [ ] `std::priority_queue`
+
+### Ejercicios
+- [ ] Balanceo de paréntesis con `std::stack`
+- [ ] Simular una cola de impresión con `std::queue`
+
+### Checkpoint
+- [ ] ¿Qué diferencia hay entre un contenedor y un adaptador de contenedor?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 4 — Algoritmos (`<algorithm>`)
+
+### Conceptos
+- [ ] `sort`, `find`, `transform`, `accumulate`
 - [ ] Rangos y lambdas aplicadas
 - [ ] `for` basado en rango
 
 ### Ejercicios
 - [ ] Pipeline de datos con `transform`/`sort`
+- [ ] Ordenar y buscar en `vector`
 
 ### Checkpoint
 - [ ] ¿Por qué usar algoritmos estándar y no bucles manuales?
@@ -470,7 +529,7 @@ Escribir código genérico que sirva para muchos tipos.
 
 **Estado:** ⬜ Pendiente
 
-## Módulo 2 — Conceptos y variadicas (avanzado)
+## Módulo 2 — Conceptos y variadicas (OPCIONAL / AVANZADO — no está en el libro)
 
 ### Conceptos
 - [ ] `auto` en parámetros (C++20)
@@ -483,7 +542,7 @@ Escribir código genérico que sirva para muchos tipos.
 ### Checkpoint
 - [ ] ¿Para qué sirven los conceptos?
 
-**Estado:** ⬜ Pendiente
+**Estado:** ⬜ Pendiente (opcional — se puede omitir sin bloquear la ruta; son temas C++20 que el libro no cubre)
 
 ### 🏆 Proyecto de fase
 - [ ] Contenedor genérico simple con plantillas
@@ -534,40 +593,110 @@ Manejar errores de forma estructurada y segura.
 
 ---
 
-# ⬜ FASE 9 — ESTRUCTURAS DE DATOS Y ALGORITMOS EN C++
+# ⬜ FASE 9 — ESTRUCTURAS DE DATOS Y ALGORITMOS EN C++ (libro: Caps. 10-18)
 
 ## Objetivo
 
-Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el PDF de la Etapa 3.
+Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el PDF "Estructuras de Datos en C++" (Joyanes). Cada módulo corresponde a un capítulo del libro.
 
-## Módulo 1 — Listas y pilas/colas
+## Módulo 1 — Listas (Cap. 10)
 
 ### Conceptos
-- [ ] Lista enlazada (sencilla/doble)
-- [ ] Pila con `std::stack` y con implementación propia
-- [ ] Cola con `std::queue`
+- [ ] Lista enlazada simple: clase Nodo, cabecera/cola, inserción (cabeza/final/entre nodos), búsqueda, borrado
+- [ ] Lista ordenada
+- [ ] Lista doblemente enlazada
+- [ ] Lista circular
+- [ ] Lista genérica con iterador (plantillas)
+- [ ] `std::list` de la STL (comparación)
 
 ### Ejercicios
-- [ ] Implementar `ListaEnlazada` con RAII
-- [ ] Balanceo de paréntesis con pila
+- [ ] Implementar `ListaEnlazada` con RAII y smart pointers
+- [ ] `ListaDoble` con inserción/borrado en ambos extremos
 
 ### Checkpoint
 - [ ] ¿Cuándo usar lista vs `std::vector`?
-- [ ] Complejidad de cada operación
+- [ ] Complejidad de inserción, búsqueda y borrado
 
 **Estado:** ⬜ Pendiente
 
-## Módulo 2 — Árboles
+## Módulo 2 — Pilas y colas (Caps. 11-12)
 
 ### Conceptos
-- [ ] Árbol binario
-- [ ] BST e inserción/búsqueda
-- [ ] Recorridos (inorden, preorden, postorden)
-- [ ] Árbol con `std::map` internamente
+- [ ] Pila: concepto LIFO; implementación con array y con lista enlazada
+- [ ] `std::stack`
+- [ ] Evaluación de expresiones aritméticas (infija → postfija y evaluación de postfija)
+- [ ] Cola: concepto FIFO; implementación con array y con array circular
+- [ ] Cola genérica con lista enlazada
+- [ ] Bicolas (doble entrada) y `std::deque`
+- [ ] `std::queue`
+
+### Ejercicios
+- [ ] Balanceo de paréntesis con pila
+- [ ] Convertir una expresión infija a postfija con pila
+- [ ] Cola circular propia
+
+### Checkpoint
+- [ ] ¿Cuándo usar pila y cuándo cola?
+- [ ] ¿Por qué una cola con array simple desperdicia espacio y la circular no?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 3 — Colas de prioridad y montículos (Cap. 13)
+
+### Conceptos
+- [ ] Cola de prioridad (TAD)
+- [ ] Implementaciones: vector/lista ordenada, tabla de prioridades
+- [ ] Montículo (heap): definición, propiedad de ordenación, representación en array
+- [ ] Operaciones: insertar, buscar mínimo, eliminar mínimo
+- [ ] Ordenación por montículos (HeapSort)
+- [ ] `std::priority_queue`
+- [ ] (Avanzado) Montículos binomiales
+
+### Ejercicios
+- [ ] Implementar un `MinHeap` con RAII
+- [ ] HeapSort sobre un `std::vector`
+
+### Checkpoint
+- [ ] ¿Por qué HeapSort es O(n log n)?
+- [ ] ¿Qué diferencia una cola de prioridad de una cola normal?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 4 — Tablas de dispersión y funciones hash (Cap. 14)
+
+### Conceptos
+- [ ] Tabla de dispersión: definición y operaciones
+- [ ] Funciones de dispersión: aritmética modular, plegamiento, mitad del cuadrado, método de la multiplicación
+- [ ] Colisiones y su resolución
+- [ ] Direccionamiento abierto: exploración lineal, cuadrática y doble dirección dispersa
+- [ ] Direccionamiento enlazado (encadenado)
+- [ ] Relación con `std::unordered_map`
+
+### Ejercicios
+- [ ] Implementar `TablaDispersa` con direccionamiento abierto
+- [ ] Tabla dispersa encadenada (listas por cubeta)
+
+### Checkpoint
+- [ ] ¿Qué es una colisión y por qué ocurre?
+- [ ] ¿Cuándo conviene direccionamiento abierto y cuándo enlazado?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 5 — Árboles binarios y BST (Cap. 16)
+
+### Conceptos
+- [ ] Árboles: terminología (raíz, hojas, altura, grado)
+- [ ] Árbol binario: equilibrio, árbol completo
+- [ ] Representación de un nodo y creación de un árbol
+- [ ] Árbol de expresión
+- [ ] Recorridos: preorden, enorden, postorden
+- [ ] Árbol binario de búsqueda (BST): búsqueda, inserción, borrado
+- [ ] Diseño recursivo de un árbol de búsqueda
 
 ### Ejercicios
 - [ ] BST implementada con smart pointers
-- [ ] Mostrar recorridos
+- [ ] Mostrar los tres recorridos
+- [ ] Evaluar un árbol de expresión
 
 ### Checkpoint
 - [ ] ¿Por qué el BST se degenera en el peor caso?
@@ -575,21 +704,49 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 
 **Estado:** ⬜ Pendiente
 
-## Módulo 3 — Grafos y algoritmos
+## Módulo 6 — Árboles equilibrados y árboles B (Cap. 17)
 
 ### Conceptos
-- [ ] Representación: matriz y lista de adyacencia
-- [ ] BFS/DFS
-- [ ] Dijkstra
-- [ ] Uso del PDF como referencia
+- [ ] Eficiencia de búsqueda en un árbol ordenado
+- [ ] Árbol AVL: altura, factor de equilibrio
+- [ ] Rotaciones: simple y doble
+- [ ] Inserción con balanceo
+- [ ] Árboles B: definición, TAD y representación de página
+- [ ] Formación de un árbol B (orden m), búsqueda e inserción
+
+### Ejercicios
+- [ ] AVL con rotaciones simples y dobles
+- [ ] Búsqueda e inserción en un árbol B
+
+### Checkpoint
+- [ ] ¿Qué garantiza un AVL que un BST simple no?
+- [ ] ¿Por qué los árboles B se usan en bases de datos y sistemas de archivos?
+
+**Estado:** ⬜ Pendiente
+
+## Módulo 7 — Grafos y algoritmos (Cap. 18)
+
+### Conceptos
+- [ ] Conceptos: nodo, arista, grado, camino; TAD Grafo
+- [ ] Representación: matriz de adyacencia y listas de adyacencia
+- [ ] Recorridos: BFS (anchura) y DFS (profundidad)
+- [ ] Componentes conexas y fuertemente conexas
+- [ ] Ordenación topológica
+- [ ] Matriz de caminos y cierre transitivo (Warshall) — opcional
+- [ ] Caminos mínimos desde un origen: Dijkstra
+- [ ] Todos los caminos mínimos: Floyd — opcional
+- [ ] Árbol de expansión mínimo: Prim y Kruskal
 
 ### Ejercicios
 - [ ] Grafo con `std::vector` de adyacencia
+- [ ] BFS/DFS sobre un grafo
 - [ ] Camino más corto con Dijkstra
+- [ ] Árbol de expansión mínimo con Prim y con Kruskal
 
 ### Checkpoint
 - [ ] ¿Cuándo matriz y cuándo lista de adyacencia?
 - [ ] Explicar Dijkstra con ejemplos
+- [ ] Diferencia entre Prim y Kruskal
 
 **Estado:** ⬜ Pendiente
 
@@ -619,6 +776,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 15 | 2026-09-23 | Fase 5 (continuación de la sesión 14, mismo día): M1 `new`/`delete`/`new[]`/`delete[]` (Memoria1.cpp, orden inverso de destrucción), valgrind, reto Fuga.cpp corregido (`delete` → `delete[]`: warning `-Wmismatched-new-delete` + crash `munmap_chunk invalid pointer`). ✅ M1. M2 RAII: smart pointers — `unique_ptr` (move, sin copia, destrucción automática, demo SmartPointers.cpp + valgrind 0), `shared_ptr`/`weak_ptr` (use_count, make_shared, demo en chat), reto: Fuga.cpp reescrito sin `new`/`delete` (unique_ptr + make_unique + parámetros por defecto; valgrind `All heap blocks were freed`). ✅ M2. M3: copia superficial vs profunda (BufferMal doble free con AddressSanitizer vs BufferBien valgrind limpio), regla de tres/cinco, reto RetoReglaCinco.cpp (move ctor con bug `datos(new int (n))` → 12 bytes definitivamente perdidos + bloque de 1 int; corregido a robo directo `datos(otro.datos)` → 5 allocs/5 frees). Checkpoints M1, M2 y M3 en voz de Juan. Regla de tutoría reforzada: AVISAR antes de crear archivos y no tocar sus archivos sin autorización. Duda resuelta: el hash se ve en Fase 6 (`std::unordered_map`) y EDA. **Fase 5 M1 y M2 ✅, M3 a medias** | ✅ Completado |
 | 16 | 2026-09-24 | Fase 5 M3 (cierre): `std::vector` y reubicación de memoria. Demo VectorReubicacion.cpp (size vs capacity, crecimiento 1→2→4→8→16, O(1) amortizado). Reto AtrapaVector.cpp: clase Contador contadora de copias/movimientos dentro de un vector. Descubrimiento clave: con move `noexcept` el vector REUBICA MOVIENDO (0 copias); sin `noexcept` el vector copia todos los elementos (garantía fuerte de excepción, `move_if_noexcept`). Conexión con RetoReglaCinco: el vector es el juez de la regla de cinco. 🐛 copy ctor sin `const` corregido a `Contador(const Contador&)`. Checkpoint 3/3 aprobado (por qué copia sin noexcept / const faltante / por qué 10 destructores al final). **M3 ✅ — falta solo el 🏆 proyecto `Matriz`** | ✅ Completado |
 | 17 | 2026-09-24 | 🏆 Proyecto de fase: `Matriz` dinámica (Proyecto5.cpp). Decision de diseño discutida: bloque plano unico `new double[f*c]{}` (como hace std::vector) vs doble puntero vs vector miembro. Iteraciones: (1) parametro `datos` sobrando en el constructor (warning -Wunused-parameter) y copy ctor/asignacion que alocaban sin copiar contenido → corregido con bucle; (2) 🐛 shadowing en `operator()(int filas, int c)` — funcionaba por casualidad pero confundia al llamar → renombrado a `f`; (3) 🐛 `cout << "\n"` dentro de `operator<<` (era `os`) → mezcla de streams, corregido; (4) move assign sin `noexcept` → corregido; (5) demo final: copia profunda `z(0,0)=999 | m(0,0)=4.1`, move roba (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores. **Fase 5 COMPLETADA** | ✅ Completado |
+| 18 | 2026-09-24 | Inicio Fase 6 (STL): contenedores + iteradores, demo StlDemo1_Map.cpp (`std::map`, `find`/`end`, `it->first/second`, for-rango, orden automático por clave, trampa de `operator[]`). Reto lanzado: Agenda con `map<string,string>` (menú agregar/buscar/mostrar/eliminar) — **pendiente de resolver**. Ajuste de la ruta con el libro Joyanes (caps 10-18): añadida tabla 🗺️ de correspondencia; Fase 6 reestructurada en 4 módulos (Cap 15: iteradores/secuenciales, asociativos, adaptadores, algoritmos); Fase 9 reestructurada en 7 módulos alineados a los caps (listas, pilas/colas, montículos, hash, BST, AVL/árboles B, grafos) e incorporados los caps 13, 14 y 17 que faltaban; Fase 7 M2 marcado OPCIONAL (C++20, fuera del libro). Decisión de alcance tomada con Juan vía preguntas | ✅ Completado |
 
 ---
 
