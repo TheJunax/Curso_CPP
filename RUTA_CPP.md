@@ -31,6 +31,30 @@
 
 ---
 
+# 🎯 ORDEN RECOMENDADO DE ESTUDIO (enfoque en Estructuras de Datos)
+
+> El profesor de Juan sigue el libro **"Estructuras de Datos en C++" (Joyanes)**. Por eso la ruta se enfoca en EDA: las fases 6 y 7 son las *herramientas* que el propio libro usa, y la Fase 9 es el *corazón* del temario (Caps. 10-18).
+
+**Orden de estudio recomendado:**
+
+```
+   1. Fase 6  STL         ┐
+         │                │  HERRAMIENTAS (rápido: contenedores + iteradores + plantillas)
+   2. Fase 7  Plantillas  ┘
+         │
+   3. Fase 9  EDA   ◄────── EL GRUESO (~70% del tiempo) — temario del profesor
+         │
+   4. Fase 8  Excepciones  COMPLEMENTO (al final, robustez general)
+```
+
+- **Fases 6 y 7** → se cubren de forma ágil, solo lo necesario para EDA (usar la STL y escribir estructuras genéricas con `template`).
+- **Fase 9** → donde va el esfuerzo principal; es exactamente el contenido del libro del profesor.
+- **Fase 8** → se deja para el final como complemento (no es EDA, pero suma robustez).
+
+> Los números de fase se mantienen intactos; lo único que cambia es el **orden** en que se estudian.
+
+---
+
 # 📚 Cómo usamos este documento
 
 Cada sesión sigue este ciclo:
@@ -422,6 +446,8 @@ La ruta desde la Fase 6 en adelante está alineada con los capítulos del PDF de
 
 > **Nota:** los capítulos 6 (complejidad/notación O), 7 (recursión) y 8 (ordenación/búsqueda) no tienen fase propia porque son transversales; se cubren dentro de las fases 6 y 9. Si en algún momento se necesita repasarlos de forma aislada, se registran en 🧭 ADELANTOS o 🔁 REPASOS.
 
+> **Orden de estudio:** ver la sección 🎯 ORDEN RECOMENDADO DE ESTUDIO al inicio — el foco es EDA (Fase 9), con las fases 6 y 7 como herramientas y la 8 al final.
+
 ---
 
 # ⬜ FASE 6 — STL (libro: Cap. 15, p. 433)
@@ -776,7 +802,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 15 | 2026-09-23 | Fase 5 (continuación de la sesión 14, mismo día): M1 `new`/`delete`/`new[]`/`delete[]` (Memoria1.cpp, orden inverso de destrucción), valgrind, reto Fuga.cpp corregido (`delete` → `delete[]`: warning `-Wmismatched-new-delete` + crash `munmap_chunk invalid pointer`). ✅ M1. M2 RAII: smart pointers — `unique_ptr` (move, sin copia, destrucción automática, demo SmartPointers.cpp + valgrind 0), `shared_ptr`/`weak_ptr` (use_count, make_shared, demo en chat), reto: Fuga.cpp reescrito sin `new`/`delete` (unique_ptr + make_unique + parámetros por defecto; valgrind `All heap blocks were freed`). ✅ M2. M3: copia superficial vs profunda (BufferMal doble free con AddressSanitizer vs BufferBien valgrind limpio), regla de tres/cinco, reto RetoReglaCinco.cpp (move ctor con bug `datos(new int (n))` → 12 bytes definitivamente perdidos + bloque de 1 int; corregido a robo directo `datos(otro.datos)` → 5 allocs/5 frees). Checkpoints M1, M2 y M3 en voz de Juan. Regla de tutoría reforzada: AVISAR antes de crear archivos y no tocar sus archivos sin autorización. Duda resuelta: el hash se ve en Fase 6 (`std::unordered_map`) y EDA. **Fase 5 M1 y M2 ✅, M3 a medias** | ✅ Completado |
 | 16 | 2026-09-24 | Fase 5 M3 (cierre): `std::vector` y reubicación de memoria. Demo VectorReubicacion.cpp (size vs capacity, crecimiento 1→2→4→8→16, O(1) amortizado). Reto AtrapaVector.cpp: clase Contador contadora de copias/movimientos dentro de un vector. Descubrimiento clave: con move `noexcept` el vector REUBICA MOVIENDO (0 copias); sin `noexcept` el vector copia todos los elementos (garantía fuerte de excepción, `move_if_noexcept`). Conexión con RetoReglaCinco: el vector es el juez de la regla de cinco. 🐛 copy ctor sin `const` corregido a `Contador(const Contador&)`. Checkpoint 3/3 aprobado (por qué copia sin noexcept / const faltante / por qué 10 destructores al final). **M3 ✅ — falta solo el 🏆 proyecto `Matriz`** | ✅ Completado |
 | 17 | 2026-09-24 | 🏆 Proyecto de fase: `Matriz` dinámica (Proyecto5.cpp). Decision de diseño discutida: bloque plano unico `new double[f*c]{}` (como hace std::vector) vs doble puntero vs vector miembro. Iteraciones: (1) parametro `datos` sobrando en el constructor (warning -Wunused-parameter) y copy ctor/asignacion que alocaban sin copiar contenido → corregido con bucle; (2) 🐛 shadowing en `operator()(int filas, int c)` — funcionaba por casualidad pero confundia al llamar → renombrado a `f`; (3) 🐛 `cout << "\n"` dentro de `operator<<` (era `os`) → mezcla de streams, corregido; (4) move assign sin `noexcept` → corregido; (5) demo final: copia profunda `z(0,0)=999 | m(0,0)=4.1`, move roba (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores. **Fase 5 COMPLETADA** | ✅ Completado |
-| 18 | 2026-09-24 | Inicio Fase 6 (STL): contenedores + iteradores, demo StlDemo1_Map.cpp (`std::map`, `find`/`end`, `it->first/second`, for-rango, orden automático por clave, trampa de `operator[]`). Reto lanzado: Agenda con `map<string,string>` (menú agregar/buscar/mostrar/eliminar) — **pendiente de resolver**. Ajuste de la ruta con el libro Joyanes (caps 10-18): añadida tabla 🗺️ de correspondencia; Fase 6 reestructurada en 4 módulos (Cap 15: iteradores/secuenciales, asociativos, adaptadores, algoritmos); Fase 9 reestructurada en 7 módulos alineados a los caps (listas, pilas/colas, montículos, hash, BST, AVL/árboles B, grafos) e incorporados los caps 13, 14 y 17 que faltaban; Fase 7 M2 marcado OPCIONAL (C++20, fuera del libro). Decisión de alcance tomada con Juan vía preguntas | ✅ Completado |
+| 18 | 2026-09-24 | Inicio Fase 6 (STL): contenedores + iteradores, demo StlDemo1_Map.cpp (`std::map`, `find`/`end`, `it->first/second`, for-rango, orden automático por clave, trampa de `operator[]`). Reto lanzado: Agenda con `map<string,string>` (menú agregar/buscar/mostrar/eliminar) — **pendiente de resolver**. Ajuste de la ruta con el libro Joyanes (caps 10-18): añadida tabla 🗺️ de correspondencia; Fase 6 reestructurada en 4 módulos (Cap 15: iteradores/secuenciales, asociativos, adaptadores, algoritmos); Fase 9 reestructurada en 7 módulos alineados a los caps (listas, pilas/colas, montículos, hash, BST, AVL/árboles B, grafos) e incorporados los caps 13, 14 y 17 que faltaban; Fase 7 M2 marcado OPCIONAL (C++20, fuera del libro). Decisión de alcance tomada con Juan vía preguntas. Además, a raíz de que el profesor pidió centrarse en estructuras de datos, se añadió la sección 🎯 ORDEN RECOMENDADO DE ESTUDIO: Fase 6 (STL express) → Fase 7 (Plantillas express) → Fase 9 (EDA, el grueso) → Fase 8 (Excepciones, al final) | ✅ Completado |
 
 ---
 
