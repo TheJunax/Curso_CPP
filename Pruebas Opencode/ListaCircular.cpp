@@ -11,28 +11,29 @@ public:
 class ListaCircular {
 private:
     Nodo* cabeza;
+    Nodo* cola;
 
 public:
-    ListaCircular(): cabeza(nullptr){}
+    ListaCircular(): cabeza(nullptr), cola(nullptr){}
 
     void insertarFinal(int valor){
         if(cabeza == nullptr){
             Nodo *nuevo = new Nodo(valor);
             cabeza = nuevo;
+            cola = nuevo;
             nuevo->siguiente = cabeza;
         }else if(cabeza->siguiente == cabeza){
             Nodo *nuevo = new Nodo(valor);
             cabeza->siguiente = nuevo;
+            cola = nuevo;
             nuevo->siguiente = cabeza;
 
         }else{
-            Nodo* ultimo = cabeza;
-            while(ultimo->siguiente != cabeza){
-                ultimo = ultimo->siguiente;
-            }
+            Nodo* ultimo = cola;
             Nodo* nuevo = new Nodo(valor);
             ultimo->siguiente = nuevo;
             nuevo->siguiente = cabeza;
+            cola = nuevo;
         }
     }
     
@@ -40,6 +41,7 @@ public:
         if(cabeza == nullptr){
             Nodo *nuevo = new Nodo(valor);
             cabeza = nuevo;
+            cola = nuevo;
             nuevo->siguiente = cabeza;
 
         }else if(cabeza->siguiente == cabeza){
@@ -48,10 +50,7 @@ public:
             cabeza->siguiente = nuevo;
             cabeza = nuevo;
         }else{
-            Nodo* ultimo = cabeza;
-            while(ultimo->siguiente != cabeza){
-                ultimo = ultimo->siguiente;
-            }
+            Nodo* ultimo = cola;
             Nodo* nuevo = new Nodo(valor);
             ultimo->siguiente = nuevo;
             nuevo->siguiente = cabeza;
@@ -85,6 +84,7 @@ public:
             if(cabeza->siguiente == cabeza){
                 delete cabeza;
                 cabeza = nullptr;
+                cola = nullptr;
                 return true;
             }
             // El último nodo apunta a la cabeza que se va a borrar:
@@ -109,6 +109,9 @@ public:
             return false;
         }
         anterior->siguiente = actual->siguiente;
+        if(anterior->siguiente == cabeza){
+            cola = anterior;
+        }
         delete actual;
         return true;
     }
