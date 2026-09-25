@@ -632,20 +632,20 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 ### Conceptos
 - [x] Lista enlazada simple: clase Nodo, cabecera/cola, inserción (cabeza/final/entre nodos), búsqueda, borrado — ✅ COMPLETA (Sesiones 20-21): `insertarInicio`, `insertarFinal`, `insertarOrdenado` (inserción entre nodos), `buscar`, `eliminar` (cabeza/medio/final/no-existe), destructor RAII. Verificada con valgrind 0 leaks 0 errores.
 - [ ] Lista ordenada — ✅ técnica de inserción ordenada dominada (`insertarOrdenado`); el resto son los métodos ya hechos. Anotar complejidad en la revisión.
-- [ ] Lista doblemente enlazada
+- [x] Lista doblemente enlazada — `ListaDoblementeEnlz.cpp` (Sesión 22): `NodoDoble` con `anterior`/`siguiente`, `cabeza`/`cola`, inserción y eliminación O(1) en ambos extremos, impresión bidireccional, destructor RAII y copia deshabilitada para evitar doble free. Compilación limpia con `g++ -Wall -Wextra -g`; valgrind: 7 allocs/7 frees, 0 leaks y 0 errores.
 - [ ] Lista circular
 - [ ] Lista genérica con iterador (plantillas)
 - [x] `std::list` de la STL (comparación) — StlList.cpp (Sesión 21): push_back O(1) por puntero a cola (vs su ListaEnlazada manual O(n) por solo tener cabeza), iteradores bidireccionales (++/--, rbegin/rend), find+erase (mismo patrón que su eliminar), RAII de fábrica. Conexión: std::list ES una lista doble → calentamiento para ListaDoble.
 
 ### Ejercicios
 - [ ] Implementar `ListaEnlazada` con RAII y smart pointers — ✅ ListaEnlazada.cpp en mano: punteros crudos + destructor RAII (insertarInicio/Final/Ordenado, buscar, eliminar, imprimir; valgrind 0 leaks 0 errores). Pendiente el refactor a `unique_ptr`.
-- [ ] `ListaDoble` con inserción/borrado en ambos extremos
+- [x] `ListaDoble` con inserción/borrado en ambos extremos — `ListaDoblementeEnlz.cpp` (Sesión 22): `insertarInicio`, `insertarFinal`, `eliminarInicio`, `eliminarFinal`, `imprimir`, `imprimirAtras` y destructor RAII. Casos probados: lista vacía, un nodo, varios nodos, eliminación en ambos extremos y del último nodo. Valgrind limpio.
 
 ### Checkpoint
 - [ ] ¿Cuándo usar lista vs `std::vector`?
-- [ ] Complejidad de inserción, búsqueda y borrado
+- [x] Complejidad de inserción, búsqueda y borrado — validada en Sesión 22: operaciones en los extremos O(1), búsqueda intermedia O(n).
 
-**Estado:** 🟢 En progreso (Sesión 20: núcleo de la lista simple completado)
+**Estado:** En progreso (Sesión 22: lista doble implementada y verificada; faltan lista circular, iterador genérico y el smart pointer de la lista simple)
 
 ## Módulo 2 — Pilas y colas (Caps. 11-12)
 
@@ -808,6 +808,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 19 | 2026-09-24 | Fase 6 M2 (asociativos): reto de la **Agenda con `map<string,string>`** completado (Map.cpp). Funciones `agregarContacto`, `buscarContacto` (find/end), `mostrarContactos` (iteradores), `eliminarContacto` (find + erase), menú `do-while`+`switch`. 🐛 detectado y corregido: en el `case 1` leía el teléfono en `nombre` (`cin >> nombre` dos veces) → contacto con nombre = teléfono y teléfono vacío. Corregido a `cin >> telefono`. Mejora aplicada: `const`-correctness en `buscarContacto` y `mostrarContactos`. Verificado: flujo completo agregar/mostrar/buscar existente/buscar inexistente/eliminar/mostrar, compila limpio y valgrind 0 leaks. **M2 cerrado:** checkpoint aprobado 2/2 (map vs unordered_map; find vs operator[]) y ejercicio de frecuencias hecho por el tutor en Frecuencias.cpp a petición de Juan (ya dominaba el tema). Explicados express `set`/`multiset`/`multimap`. | ✅ Completado |
 | 20 | 2026-09-24 | **Arranque de EDA (Fase 9 M1, Cap. 10 — Listas).** Decisión de Juan (vía pregunta): saltar directo a EDA; Fase 6 M1/M3/M4 y Fase 7 quedan just-in-time. Concepto de lista enlazada vs array (inserción O(1) al inicio, búsqueda O(n), sin acceso aleatorio). Puente C→C++: `struct Nodo` con `malloc` → `class Nodo` con constructor y `new`. Esqueleto `ListaEnlazada.cpp` con clase `Nodo` + clase `Lista` (`cabeza`) y 3 TODO. Juan implementó `insertarInicio`, `imprimir` y el destructor RAII. 🐛 en el primer intento del destructor: sin `while`, borraba `temp` (2º nodo) en vez de `cabeza`, y leía `temp->siguiente` **después** del `delete` → *Invalid read* + 32 bytes fugados. Corregido con el `while` y el orden correcto (leer siguiente → borrar → avanzar). Verificado: `1-> 7-> 3-> null`, compila limpio, valgrind 0 leaks / 0 errores. | ✅ Completado |
 | 21 | 2026-09-24 | Fase 9 M1 (Cap. 10): **núcleo de la lista enlazada simple completado** (ListaEnlazada.cpp). `insertarInicio` ✓, `insertarFinal` ✓ (tras 🐛 self-loop en lista vacía corregido), `buscar` ✓ (quitarle el cout: el que busca no imprime), `eliminar` ✓ — el reto gordo, resuelto paso a paso tras 4 intentos: se corrigieron (1) falta de `return true` en caso cabeza, (2) orden en condición del while (`actual != nullptr` ANTES de `actual->dato` — corto-circuito del `&&`), (3) línea trampa `anterior->siguiente = nullptr` que cortaba toda la lista y (4) `return false` en vez de `true` al borrar con éxito. Destructor RAII ✓. Verificado: flujo completo, valgrind 0 leaks / 0 errores, sin segfaults. Método usado: construcción guiada paso a paso (guarda → caso cabeza → paseo dos punteros → desenganche → delete). Luego `insertarOrdenado` completado a la primera: caso fácil reutiliza patrones de `insertarInicio`, paseo con `anterior`/`actual` y condición `actual != nullptr && actual->dato < valor` (corto-circuito aplicado sin ayuda), doble engarce `nuevo->siguiente = actual; anterior->siguiente = nuevo`. Resultado `2-> 3-> 5-> 8-> null`, valgrind 0 leaks 0 errores. **Lista simple COMPLETA (inserción cabeza/final/entre nodos, búsqueda, borrado, RAII).** Mini-tema corto: **`std::list` de la STL** (StlList.cpp) — push_back O(1) por puntero a cola (vs su manual O(n)), iteradores bidireccionales ++/-- y rbegin/rend, find+erase con el patrón de su eliminar, RAII de fábrica; conexión con la próxima ListaDoble. | ✅ Completado |
+| 22 | 2026-09-25 | Fase 9 M1 (Cap. 10): `ListaDoble` con `NodoDoble` (`anterior`/`siguiente`), `cabeza`/`cola`, inserción y eliminación O(1) en ambos extremos, impresión bidireccional, destructor RAII y copia deshabilitada. Se corrigieron enlaces colgantes/use-after-free al eliminar, casos de lista vacía y nodo único, y `if (cola = nullptr)` por comparación. `main` ampliado; compilación limpia con `g++ -Wall -Wextra -g`; valgrind: 7 allocs/7 frees, 0 leaks y 0 errores. Checkpoint aprobado: vaciar ambos extremos, guardar el nodo antes de `delete` y búsqueda intermedia O(n). | Completado |
 
 ---
 
@@ -843,6 +844,8 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [ ] `*p = &x;` con `p = nullptr`: mezclar asignación al puntero (`p = &x`) con la del valor apuntado (`*p = ...`) → error de tipos y segfault (Sesión 4)
 - [ ] `else` pegado al último `if` de una cadena → mensajes contradictorios (Sesión 3)
 - [ ] `const int &r = x; r = 100;` NO cambia x: es error de compilación (Sesión 4)
+- [x] Lista doblemente enlazada: al borrar un nodo hay que reconectar el vecino (`cabeza->anterior = nullptr` o `cola->siguiente = nullptr`) antes de `delete`; si no, queda un puntero colgante y valgrind marca *Invalid read*. Al borrar el único nodo, `cabeza` y `cola` deben quedar en `nullptr` (Sesión 22, ListaDoblementeEnlz.cpp).
+- [x] `if (cola = nullptr)` es asignación, no comparación: compila con warning `-Wparentheses` y deja el enlace en estado incorrecto; debe escribirse `cola == nullptr` (Sesión 22).
 
 ---
 
