@@ -25,7 +25,7 @@
 | 6 | STL | 🟢 En progreso (M2 ✅) |
 | 7 | Plantillas | ⬜ Pendiente |
 | 8 | Excepciones | ⬜ Pendiente |
-| 9 | EDA en C++ | 🟢 En progreso (M1) |
+| 9 | EDA en C++ | 🟢 En progreso (M1 ✅ parcial, M2 en curso, **M4 ✅ contenido** ⏳ reto) |
 
 **Progreso orientativo:** ✅ Fases V, 1, 2, 3, 4 y 5 completadas. Siguiente: Fase 6 (STL).
 
@@ -54,6 +54,8 @@
 > Los números de fase se mantienen intactos; lo único que cambia es el **orden** en que se estudian.
 
 > **Nota (Sesión 20):** Juan decidió **saltar directo a la Fase 9 (EDA)** sin cerrar la Fase 6 (faltan M1 list/deque, M3 adaptadores, M4 algoritmos) ni la Fase 7 (plantillas). Esas se verán **just-in-time**, cuando alguna estructura de EDA las necesite (p. ej. `template` al hacer la lista genérica, `std::list` al comparar, `stack`/`queue` en el M2).
+
+> **Nota (Sesión 27):** Juan pidió arrancar **tablas hash + árboles + grafos** (M4, M5, M6, M7) y se acordó **un módulo por sesión**. M4 (hash) se vio completo en la Sesión 27 (contenido ✅, falta el reto de implementación). El orden de la ruta **se respeta**: hash → árboles → grafos, que es el orden de los caps. 14, 16, 17 y 18 del libro. `queue`/`priority_queue` se introducirán just-in-time en el M7 (BFS y Dijkstra/Kruskal las necesitan), lo cual justifica haber dejado M2/M3 de la Fase 6 sin cerrar.
 
 ---
 
@@ -422,7 +424,7 @@ Entender el ciclo de vida de los recursos en C++ y delegarlo a la STL.
 ### 🏆 Proyecto de fase
 - [x] `Matriz` dinámica con RAII y regla de cinco
 
-**Estado Fase 5:** ✅ Completada (2026-09-24) — Proyecto Matriz (Proyecto5.cpp): regla de cinco completa (moves con `noexcept`), bloque plano `new double[f*c]{}`, `operator()` con referencia, `tamF()/tamC()`, `operator<<` amigo. Verificado: copia profunda (`z(0,0)=999` vs `m(0,0)=4.1`), move roba y anula donante (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores.
+**Estado Fase 5:** ✅ Completada (2026-09-24) — Proyecto Matriz (Proyecto5.cpp): regla de cinco completa (moves con `noexcept`), bloque plano ` newdouble[f*c]{}`, `operator()` con referencia, `tamF()/tamC()`, `operator<<` amigo. Verificado: copia profunda (`z(0,0)=999` vs `m(0,0)=4.1`), move roba y anula donante (m queda 0×0 sin alocar), valgrind 4 allocs/4 frees 0 leaks 0 errores.
 
 ---
 
@@ -703,22 +705,68 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 ## Módulo 4 — Tablas de dispersión y funciones hash (Cap. 14)
 
 ### Conceptos
-- [ ] Tabla de dispersión: definición y operaciones
-- [ ] Funciones de dispersión: aritmética modular, plegamiento, mitad del cuadrado, método de la multiplicación
-- [ ] Colisiones y su resolución
-- [ ] Direccionamiento abierto: exploración lineal, cuadrática y doble dirección dispersa
-- [ ] Direccionamiento enlazado (encadenado)
-- [ ] Relación con `std::unordered_map`
+- [x] Tabla de dispersión: definición y operaciones — **COMPLETO (Sesión 27)**: las tres piezas (arreglo de cubetas, función de dispersión, resolución de colisiones). `indice = hash(clave) % tamano`. Ganancia: O(1) en lugar de O(n)/O(log n).
+- [x] Funciones de dispersión: aritmética modular, plegamiento, mitad del cuadrado, método de la multiplicación — **COMPLETO (Sesión 27)**: modular (la de la STL, FNV-1a en libstdc++), **plegamiento** (sumar códigos; se implementó en `HashEncadenado.cpp`), mitad del cuadrado (descartar bits altos, enumerar los bajos), multiplicación de Knuth (constante del número áureo, se queda con la parte fraccionaria).
+- [x] Colisiones y su resolución — **COMPLETO (Sesión 27)**: **inevitables por el principio del palomar** (más claves que cubetas → alguna cubeta tiene 2+, da igual qué tan buena sea la función). Ocurren incluso con n ≤ m (en el demo, "Ana" y "María" caeron juntas en la cubeta 1 con 7 claves en 7 cubetas). Lo que hace la dispersión buena no es *evitarlas*, es hacerlas **raras y repartidas**.
+- [x] Factor de carga α = claves / cubetas — **COMPLETO (Sesión 27)**: busca = O(1) llegar a la cubeta + O(α) recorrerla. La STL rehashea al pasar α de 1.
+- [x] Direccionamiento enlazado (encadenado) — **COMPLETO (Sesión 27)**: cada cubeta es una `list<pair<K,V>>`. **La colisión no necesita trabajo extra**: el par se apila en la lista de su cubeta.
+- [x] Direccionamiento abierto: exploración lineal, cuadrática y doble dirección dispersa — **COMPLETO (Sesión 27)**: todos los datos en un **solo vector plano**, sin punteros. Exploración lineal `(idx+1) % m`, cuadrática `(idx + i²) % m`, doble dispersión (otra función hash).
+- [x] **Borrado perezoso / lápidas** (*lazy deletion* / *tombstones*) — **COMPLETO (Sesión 27)**: el bug central del módulo. Ver abajo la demo.
+- [x] Relación con `std::unordered_map` — **COMPLETO (Sesión 27)**: `unordered_map` **es** esto. `Map.cpp` y `Frecuencias.cpp` (Sesión 19) son el mismo algoritmo con la libstdc++ escribiéndolo. `operator[]` crea la entrada si no existe, por eso para buscar se usa `find` (Sesión 19).
 
 ### Ejercicios
-- [ ] Implementar `TablaDispersa` con direccionamiento abierto
-- [ ] Tabla dispersa encadenada (listas por cubeta)
+- [x] Tabla dispersa encadenada (listas por cubeta) — `HashEncadenado.cpp` (Sesión 27): `template <typename K, typename V>` con `vector<list<pair<K,V>>>`, `indice()`, `insertar` (con actualización in-place), `buscar` (`bool` + `V&`, mismo patrón que `Pila<T>::sacar` de la Sesión 26), `eliminar`, `factorCarga()`, `crecer()` y `imprimirEstructura()` (sin esto las colisiones son invisibles). **Sin destructor**: el `vector` es dueño de las listas y cada lista de sus pares — el argumento de la Sesión 25 aplicado a la STL. Verificado: 7 claves en 7 cubetas mostrando 3 colisiones, `crecer()` reenc/indexó todo (Ana de la cubeta 2 a la 9), actualización sin incrementar `cantidad`, valgrind 25 allocs/25 frees, 0 fugas, 0 errores.
+- [x] Demo del fallo del borrado real en direccionamiento abierto — `HashTrampaBorrado.cpp` (Sesión 27): el bug intermitente demostrado en vivo (ver 🐛).
+- [x] Comparación empírica encadenada vs abierta — `HashCache.cpp` (Sesión 27): 200 000 claves, 400 000 cubetas, α 0.5, misma dispersión. **Abierta 16x más rápida al insertar y 2.65x al consultar.**
+- [ ] Implementar `TablaDispersa` con direccionamiento abierto — **reto asignado en la Sesión 27, pendiente de resolver por Juan.**
 
 ### Checkpoint
-- [ ] ¿Qué es una colisión y por qué ocurre?
-- [ ] ¿Cuándo conviene direccionamiento abierto y cuándo enlazado?
+- [x] ¿Qué es una colisión y por qué ocurre? — **aprobado (Sesión 27)**: cuando dos claves distintas dan el mismo índice. Es **inevitable** por el principio del palomar, no un defecto de la función.
+- [x] ¿Cuándo conviene direccionamiento abierto y cuándo enlazado? — **aprobado (Sesión 27)**, con matiz importante: Juan confundió "cuál tolera mejor" con "cuál se degrada más rápido" (son **opuestas**). Ver tabla de abajo.
+- [x] ¿Qué necesita el abierto que el encadenado no? — **aprobado (Sesión 27)**: la **lápida**. La encadenada no tiene este problema **porque no tiene cadena que romper**; al borrar de la lista, el invariante no se altera.
+- [x] ¿Por qué la diferencia entre ambas es "la constante escondida" y no la complejidad? — **aprobado (Sesión 27)**: las dos son O(1); lo que cambia es el número de `new` y los *cache misses* (demostrado con `HashCache.cpp`).
 
-**Estado:** ⬜ Pendiente
+**Estado:** 🟡 Por validar — contenido completo y checkpoints aprobados; falta el **reto de implementación** con direccionamiento abierto (exploración lineal + 3 estados + rehash de lápidas).
+
+### 📊 Tabla resumen encadenada vs abierta (Sesión 27)
+
+| | **Encadenada** | **Abierta** |
+|---|---|---|
+| Representación | `vector<list<pair<K,V>>>` | un `vector<Slot>` plano |
+| Punteros | sí (nodos enlazados) | **ninguno** |
+| Colisión | se apila en la lista | se rueda a la siguiente casilla |
+| Insertar | crea un nodo (`new` interno) | escribe en el arreglo |
+| Velocidad real | 7.08 ms insertar / 104.9 ms consultar | **0.44 ms / 39.6 ms** (16x / 2.65x) |
+| α tolerable | hasta ~1.0 | **≤ 0.7** |
+| Tolera mala dispersión | **mejor** (el daño queda en una cubeta) | peor (cadenas largas bloquean casillas) |
+| Borrar | trivial (`erase` de la lista) | **rompe la cadena → necesita lápida** |
+| Slogan | tolerante y más lenta | rápida y delicada |
+
+> **Lección de fondo (Sesión 27):** la diferencia real entre estructuras de datos casi nunca es O(1) contra O(n) — es **la misma complejidad con distinta constante**, y la constante la deciden la memoria, los `new` y la caché. Cuando pregunten "¿cuál es mejor?", la respuesta buena es *"depende del patrón"*, respaldada con números.
+
+### 🐛 El bug del módulo: el borrado real rompe la cadena (Sesión 27)
+
+> **Invariante de la exploración lineal:** *toda búsqueda para en la PRIMERA casilla vacía.*
+
+La razón: si una casilla está vacía, es porque nadie la *"ocupó"* al colisionar. Si alguien hubiera colisionado ahí, la habría tomado; entonces las casillas siguientes no pueden pertenecer a la misma cubeta de origen. **Siempre que no haya habido un borrado.**
+
+Al **borrar de verdad** se crea un hueco en medio de la cadena y el invariante se rompe: la búsqueda para en el hueco y **nunca alcanza** lo que estaba después. El dato no se pierde — **la tabla miente**, que es peor, porque el programa cree que no existe.
+
+Caso del ejercicio: `Ana`(2) `Luis`(3) `Zoe`(4), se borra `Luis` → `buscar("Zoe")` arranca en la cubeta 4, **encuentra la casilla 3 vacía, para, y da falso negativo**.
+
+Y lo peor — el bug es **intermitente**: al insertar `23` (también colisiona en 2), se instala en el hueco del 21, la cadena vuelve a quedar continua y `buscar("Zoe")` **vuelve a funcionar**. Mismo programa, mismos datos, resultado distinto. Depende del orden de llegada.
+
+**Solución (por eso existe el borrado perezoso):** el borrado real **no puede existir** — no es pereza de implementación, es geometría: al vaciar la casilla 3, la información de "en la 4 hay un 22 que venía de la cubeta 2" **ya se destruyó** y no hay algoritmo de búsqueda que lo recupere. La STL marca un **tercer estado**:
+
+| Estado | Significa | ¿La búsqueda sigue? | ¿Ocupa casilla? |
+|---|---|---|---|
+| `VACIA` | nunca hubo nada | **NO — para** | no |
+| `LAPIDA` | hubo algo, se borró | **SÍ — sigue** | sí, a efectos de búsqueda |
+| `OCUPADA` | hay dato | sí | sí |
+
+**Costo oculto:** las lápidas ocupan casilla para la búsqueda pero no cuentan como datos. Si se borra e inserta mucho, la tabla se llena de lápidas y buscar se vuelve O(n) **sin que el factor de carga lo anuncie**. Por eso `crecer()` debe contar también las lápidas, y en el rehash **se descartan** (allí sí se "vacían", porque se redibuja todo desde cero).
+
+> **Puente a los árboles (Sesión 27):** este es el mismo drama del `erase` de un BST. *Cuando una estructura depende de que "lo de atrás está unido a lo de adelante", el borrado se vuelve el punto delicado.*
 
 ## Módulo 5 — Árboles binarios y BST (Cap. 16)
 
@@ -823,6 +871,7 @@ Implementar y aplicar las estructuras de datos clásicas en C++, guiado por el P
 | 24 | 2026-09-25 | Fase 9 M1 (Cap. 10): **optimización de la lista circular con puntero `cola`**. Se agregó `Nodo* cola` a `ListaCircular` para eliminar el recorrido O(n) al buscar el último nodo. Juan identificó por su cuenta la razón de por qué borrar la cola sigue siendo O(n) (se necesita el nodo anterior para reconectar a la cabeza, y en una lista simple no se puede caminar hacia atrás) — que es justamente la razón de ser de la lista doble. `insertarFinal` e `insertarInicio` quedaron O(1); `eliminar` de la cola actualiza `cola = anterior` **con condición** (`if(anterior->siguiente == cabeza)`) para no romper el caso intermedio. Complejidades: circular+cola = O(1)/O(1)/O(1)/O(n) vs doble = O(1) en los cuatro casos. Verificado con un test que borra la cola y luego inserta al final (el escenario donde un `cola` desactualizado amputaba la lista: `0 -> 1 -> 2 -> 3 -> 0` + insertarFinal(4) daba `0 -> 4 -> 0` y 3 fugas). Compilación limpia; valgrind 7 allocs/7 frees, 0 fugas, 0 errores. Pendiente opcional: reemplazar el `while` de buscar-la-cola en `eliminar` de cabeza por `cola->siguiente = cabeza` para que sea O(1). | Completado |
 | 25 | 2026-09-25 | **Fase 7 express (plantillas) + cierre del smart pointer en listas**, arranque por delegación de Juan ("ya lo demás lo haces tú"). (1) `Plantilla.cpp`: función `minimo<T>` con `int`, `double` y `std::string`; se detectó la trampa de la deducción: `minimo("Ana","Zoe")` deduce `T = const char*` y el `<` pasa a comparar **direcciones**, no letras (mismo resultado para ambos órdenes) mientras que con `std::string` da el alfabético → "las plantillas hacen lo que les das". (2) `PlantillaCircular.cpp`: Juan convirtió la lista circular en `template <typename T>` por su cuenta (bien: los dos `template`, `T dato`, `Nodo<T>* cabeza/cola`, `insertarFinal(T)`); el compilador le marcó `missing template argument list after 'Nodo'` y el tutor completó lo que faltaba (7 sitios: ctor `Nodo(T)`, parámetros, 17 punteros locales `Nodo<T>*`, 6 `new Nodo<T>`, `= delete` con `<T>`), más `<string>` y un bloque de prueba con `ListaCircular<std::string>` (Miguel/Ana/Zoe). valgrind 10 allocs/10 frees, 0 fugas, 0 errores → **el mismo molde sirve para `int` y para texto sin tocar una línea de la lógica**. (3) `ListaEnlazadaSmart.cpp`: la `ListaEnlazada` convertida a `std::unique_ptr` (`cabeza` y `Nodo<T>::siguiente` como dueños) + `make_unique` y `std::move`. Desaparecen el destructor (14 líneas) y los `= delete` (el `unique_ptr` no es copiable); `insertarInicio` cabe en 2 líneas; borrar la cabeza es `cabeza = std::move(cabeza->siguiente)`. Probada con `int` y `std::string`; valgrind 12 allocs/12 frees, 0 fugas, 0 errores. (4) **Hallazgo de diseño**: `unique_ptr` + lista circular = **ciclo de propiedad** (el último es dueño de la cabeza y la cabeza es dueña del último por la cadena) → fuga garantizada y recursión infinita al destruir; por eso el último enlace debe ser no-dueño. Explica por qué `std::list` de la STL **no** es circular. Plantillas M1 marcadas ✅ (express). Pendiente para M1: el **iterador propio** (`begin()`/`end()`) y el checkpoint lista vs `std::vector`. Decisión de Juan: seguir a **pilas** (Fase 9 M2, Cap. 11) dejando el iterador para después | ✅ Completado |
 | 26 | 2026-09-26 | Fase 9 M2 (Cap. 11): **pilas**. Concepto LIFO y por qué existe: la evaluación de expresiones en postfija (RPN) es el problema que hizo nacer la estructura (`2 + 3 * 4` → `2 3 4 * +`, sin regla de precedencia). Checkpoint previo aprobado por Juan: sin subir el `tope` se sobrescribe la misma casilla y la pila queda mintiendo (`tamano()` en 0) **sin error ni fuga detectable** → se instaló el modelo mental "la pila no es el array, la pila es el `tope`". Segundo checkpoint aprobado: `sacar` devuelve `bool` + `T&` y no `T` porque `false` no se confunde con ningún dato válido (con `0` o `-1` no se podría distinguir "estaba vacía" de "había un 0"). `Pila.cpp` (plantilla `Pila<T>` sobre bloque plano `new T[cap]`, al estilo de la `Matriz` de la Fase 5): Juan implementó `meter` y `sacar` correctamente respetando el invariante (escribir en `datos[tope + 1]` **después** de subir el `tope`) y acertó usar `tope + 1 == capacidad` en vez de `tamano() == capacidadMaxima()` (lee la variable directo, no se puede desincronizar). El tutor corrigió: (1) 🐛 `cima()` con la condición al revés devolvía `datos[-1]` → índice negativo fuera del bloque, *undefined behavior* silencioso; (2) `return;` sin valor en la versión `const` de `cima()` (lo cazó el compilador: `return-statement with no value`); (3) código muerto (`if/else` con return en ambos lados + return de relleno) → convención STL: caso raro sale temprano, caso normal es el camino recto; (4) `datos[tamano()]` duplicaba el invariante → `datos[tope + 1]`. Verificado: llenar 5, `meter` en pila llena devuelve `false`, LIFO puro al sacar (5 4 3 2 1), `sacar` de vacía devuelve `false` sin tocar `valor`, y **la misma plantilla con `std::string`**; compilación limpia y valgrind 4 allocs/4 frees, 0 fugas, 0 errores. Quedó planteada y **sin responder** la pregunta de cierre: `cima()` devuelve `T&` al elemento del array, así que la referencia puede quedar colgando si la pila se vacía o se recicla (misma trampa de la Sesión 20 con otro disfraz) y bajo qué regla es seguro. Pendiente en M2: reto de paréntesis, `std::stack`, infija→postfija, pila con lista enlazada (reutilizando `ListaEnlazadaSmart`) y las colas | ✅ Completado |
+| 27 | 2026-09-29 | **Fase 9 M4 (Cap. 14 — Tablas de dispersión). Juan pidió estudiar hash + árboles + grafos; se acordó **un módulo por sesión**, así que hoy M4 completo y árboles/grafos quedan agendados.** Concepto: cubetas + función de dispersión + resolución de colisiones; las 4 funciones clásicas (modular, plegamiento, mitad del cuadrado, multiplicación de Knuth); colisiones **inevitables por el principio del palomar**; factor de carga α y su relación con el rehash. `HashEncadenado.cpp` (tutor): tabla encadenada con `vector<list<pair<K,V>>>`, **sin destructor** (RAII de la STL), `buscar` con el patrón `bool`+`V&` de la Sesión 26, y `crecer()` que reenc/indexó todo (Ana de la cubeta 2 a la 9 — se ve por qué el rehash es O(n)). Verificado: 25 allocs/25 frees, 0 fugas, 0 errores. 🐛 warning `-Wrange-loop-construct` en `for (const string& n : {"Ana","Sara",...})`: es el `initializer_list<const char*>` de la Sesión 25 otra vez (se construye un `string` temporal cada vuelta); corregido a `const char*`. **Puntos donde Juan acertó y se le corrigió el porqué:** P1 (Ana en 2, Luis se rueda a la 3) ✅; P2 (Zoe a la 4, y si se llena se duplica) ✅ con el matiz de α ≤ 0.7 en abierto; **P3 (el borrado rompe la cadena) ✅ en la conclusión pero el mecanismo quedó enredado** → se aterrizó con el invariante "toda búsqueda para en la PRIMERA casilla vacía" y una demo de 40 líneas (`HashTrampaBorrado.cpp`) donde el bug se ve correr. **Hallazgo de la sesión: el bug es INTERMITENTE** — tras borrar `Luis` la 3 queda vacía y `buscar("Zoe")` da falso negativo, pero al insertar `23` (que también colisiona) se tapa el hueco, la cadena queda continua y la búsqueda **vuelve a funcionar**: mismo programa, mismos datos, resultado distinto. Esa es la clase de bug más difícil de cazar en producción. `HashCache.cpp` (tutor): 200 000 claves, α 0.5, misma dispersión → **la abierta es 16x más rápida al insertar y 2.65x al consultar**, aunque las dos son O(1). Se explicaron las dos causas distintas: 16x es **menos `new`** (la encadenada reserva memoria del SO por cada clave) y 2.65x es **caché** (la encadenada salta entre direcciones del heap → *cache miss* ~100 ns; la abierta lee memoria contigua con *prefetch* gratis). Checkpoint "cuándo abierto y cuándo encadenado" aprobado **con corrección de fondo: Juan confundió "cuál tolera mejor" con "cuál se degrada más rápido"** (son preguntas opuestas: la encadenada tolera mejor, la abierta se degrada más rápido). Se aclará: la diferencia real entre estructuras casi nunca es O(1) vs O(n) sino **la misma complejidad con distinta constante**, y la respuesta buena a "¿cuál es mejor?" es "depende del patrón". **Pendiente:** reto de implementar `HashAbierto.cpp` (exploración lineal, 3 estados con lápida, rehash que descarte las lápidas) + la pregunta abierta de la Sesión 26 (referencia colgante en `cima()`). **Juan decidió parar y seguir después** (el borrado perezoso se entiende mejor descansado). | 🟡 Por validar |
 ---
 
 # 🐛 ERRORES IMPORTANTES
@@ -875,6 +924,11 @@ _(Ir llenando a medida que aparezcan. Revisar SIEMPRE antes de evaluar código.)
 - [x] 🐛 Código muerto: `if/else` con `return` en **ambos** lados y un `return` de relleno después. No rompía nada, pero es el tipo de línea que alguien borra "porque está de más" y se lleva por delante el `return true` de al lado. Convención del libro y de la STL: **el caso raro sale temprano (`if` + `return`), el caso normal es el camino recto** (Sesión 26).
 - [x] 🐛 Escribir el invariante dos veces: `datos[tamano()]` es literalmente `datos[tope + 1]`, porque `tamano()` **es** `tope + 1`. Si mañana cambia el significado de `tope`, `meter` se entera por el compilador pero `tamano()` no. Usar la variable directa (`datos[tope + 1]`, `tope == capacidad - 1`) deja el invariante en **un solo lugar** (Sesión 26).
 - [x] Acierto de Juan: en el chequeo de pila llena usó `tope + 1 == capacidad` en vez de `tamano() == capacidadMaxima()`; la primera lee la variable directamente y **no puede desincronizarse** del `tope`. Es el mismo criterio que aplicó solo en `sacar` con `estaVacia()`. Menos indirección = menos formas de meter la pata (Sesión 26).
+- [x] 🐛 `for (const string& n : {"Ana", "Sara", ...})` → el `initializer_list` es de **`const char*`**, no de `string`; se construye un `std::string` **temporal en cada vuelta** y `g++` lo avisa con `-Wrange-loop-construct`. Es la Sesión 25 (deducción de `T` = `const char*`) disfrazada de otra cosa. Ojo: **funciona bien igual**, por eso el warning hay que leerlo y no ignorarlo (Sesión 27, HashEncadenado.cpp)
+- [x] 🐛 `setw` / `setprecision` no vienen en `<iostream>`: requieren **`<iomanip>`**. `error: 'setw' was not declared in this scope` (Sesión 27, HashCache.cpp)
+- [x] 🐛 **Borrado real en direccionamiento abierto rompe la cadena.** El invariante es *"toda búsqueda para en la PRIMERA casilla vacía"*, y vaciar una casilla en medio de una cadena lo destruye: lo que estaba después **se vuelve inalcanzable** y la tabla **miente** (falso negativo), que es peor que perder el dato. Y el fallo es **intermitente**: depende del orden de inserción, así que insertar una clave que tapó el hueco lo "arregla" sin que nadie toque el bug. No hay algoritmo de búsqueda que lo solucione — la información se destruye al vaciar. Por eso existe el **borrado perezoso** (estado `LAPIDA`): la casilla sigue ocupada para la búsqueda, así que la cadena no se rompe (Sesión 27, HashTrampaBorrado.cpp)
+- [x] Pregunta trampa en exams y en parciales: **"¿cuál tolera mejor X?" y "¿cuál se degrada más rápido?" son preguntas opuestas** y se responden con estructuras distintas. Decir "la X" a las dos es indicador de que se está contestando sin pensar la pregunta. La respuesta buena a "¿cuál es mejor?" es **"depende del patrón"** (Sesión 27)
+- [x] La diferencia real entre dos estructuras de datos rara vez es O(1) contra O(n): es **la misma complejidad con distinta constante**. Lo que decide la constante: el número de `new`, si los datos están **contiguos en memoria** (caché y *prefetch*) o dispersos (*cache miss* ~100 ns). Medido: encadenada vs abierta = 16x al insertar (menos `new`) y 2.65x al consultar (caché), siendo las dos O(1) (Sesión 27, HashCache.cpp)
 
 ---
 
@@ -896,3 +950,4 @@ _(Registrar aquí cualquier tema trabajado fuera de orden y su justificación.)_
 - [ ] `trie` (árbol de prefijos): tema EXTRA, **fuera del libro de Joyanes** (no es temario del profesor). Juan preguntó por él en la Sesión 18. Quedó **agendado para verlo después de la Fase 9 M5/M6 (árboles)**, ya que usa nodos, punteros/smart pointers y recursión. Idea: árbol N-ario donde cada arista es una letra; cada nodo con `std::map<char, Nodo*>`; sirve para autocompletado y búsqueda por prefijo en O(longitud). Ojo: NO está dentro de los árboles B (confusión aclarada: son estructuras distintas, ambos árboles N-arios pero de lógica diferente).
 - [x] **Fase 7 (plantillas) adelantada a la Sesión 25**, just-in-time: al convertir `ListaCircular` y `ListaEnlazada` en `template <typename T>` (y al ver que una misma clase sirve para `int` y para `std::string`) hizo falta `template <typename T>`, deducción y clases plantilla antes de llegar a la Fase 7 formal. Se trabó la Fase 7 M1 completa (express) y quedó pendiente solo el M2 de variádicas (opcional, C++20, fuera del libro). No se perdió nada del orden.
 - [x] **Referencias colgantes en `cima()`** (Sesión 26): pregunta abierta al cierre. `Pila<T>::cima()` devuelve `T&` al interior del array; si la pila se vacía o el elemento se recicla, esa referencia queda colgando. Pendiente: regla de seguridad del retorno por referencia y qué garantiza `std::stack::top()`. Importante para el resto del curso: es la misma clase de error que el *use-after-free* de la Sesión 20, y va a reaparecer en iteradores y en la cola circular.
+- [x] **Tablas hash, árboles y grafos adelantados a la Sesión 27** (a pedido de Juan): se arrancó el bloque final de la Fase 9 (M4-M7) con M4 (hash). Justificación: son Caps. 14, 16, 17 y 18 del libro de Joyanes — el temario del profesor — y Juan los necesitaba ya. No se pierde nada del orden porque el orden *dentro* del bloque se respeta (hash → árboles → grafos). Lo que sí queda oficialmente **aplazado**: cola circular y `std::queue` de M2, y los montículos de M3 (que se harán just-in-time con `std::priority_queue` al llegar a Dijkstra/Kruskal/Prim).
