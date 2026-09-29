@@ -23,7 +23,7 @@ int plegamiento(const string& clave, int tamano) {
     int suma = 0;
     for (char c : clave) {
         suma += static_cast<unsigned char>(c);   // sin el cast, los negativos
-    }                                             // arruinan la suma
+    }                                             // arruinan la suma  abc 44+45+4% 10
     return suma % tamano;
 }
 
