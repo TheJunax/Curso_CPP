@@ -51,21 +51,6 @@ public:
     }
 };
 
-// ---------------------------------------------------------------------------
-//  RETO 1: balanceo de parentesis y llaves.
-//  Al ver un abre, meter. Al ver un cierra, sacar y comparar con el
-//  que se esperaba. Al final la pila debe estar vacia.
-//
-//    "(()"      -> false  (sobro un abre)
-//    "(a+b*c)"  -> true
-//    "([)]"     -> false  (se cruzan)
-bool balanceado(const std::string& cadena);
-
-// ---------------------------------------------------------------------------
-//  RETO 2: infija -> postfija (Shunting Yard). Pila de operadores +
-//  regla de precedencia.
-//  std::string convertirPostfija(const std::string& infija);
-// ---------------------------------------------------------------------------
 
 int main() {
     Pila<int> p(5);

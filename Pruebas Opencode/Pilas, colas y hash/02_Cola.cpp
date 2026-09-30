@@ -1,19 +1,3 @@
-/*
-  02 - COLA (QUEUE) — FIFO
-  "El primero que entra, es el primero que sale."
-
-  La pila mete y saca por el MISMO lado. La cola mete por un lado
-  y saca por el otro:
-
-      meter aca                          sacar aca
-      (final)                            (frente)
-         v                                  ^
-    [ 10 ][ 20 ][ 30 ][ 40 ]
-      ^
-    este sale primero
-
-  Compilar: g++ -Wall -Wextra -g 02_Cola.cpp -o cola
-*/
 
 #include <iostream>
 #include <string>
