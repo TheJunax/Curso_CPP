@@ -37,3 +37,14 @@ int main() {
     std::cout << "bloque terminado, archivo cerrado\n";
     return 0;
 }
+
+/*Traer archivo
+leer elemento 1
+Aplicar funcion Hash
+Con el valor hash se lleva el elemento a la tabla 
+*/
+
+/*
+int h = funcionsuma(primer registro)
+tabla hash [h] = primer registro 
+*/

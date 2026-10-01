@@ -118,7 +118,6 @@ NodoB* insertar(NodoB* raiz, int clave) {
         raiz->n = 1;
         return raiz;
     }
-
     // La raiz llena no tiene padre adonde enviar la clave del medio, asi que
     // el arbol CRECE HACIA ARRIBA con una raiz nueva.
     if (raiz->n == MAX_CLAVES) {

@@ -1,13 +1,10 @@
-
 #include <iostream>
 using namespace std;
-
 struct Nodo {
     int dato;
     Nodo* izq;
     Nodo* der;
 };
-
 Nodo* crearNodo(int dato) {
     Nodo* nuevo = new Nodo;
     nuevo->dato = dato;
@@ -15,8 +12,6 @@ Nodo* crearNodo(int dato) {
     nuevo->der = nullptr;
     return nuevo;
 }
-
-
 Nodo* insertar(Nodo* raiz, int valor) {
     if (raiz == nullptr) return crearNodo(valor);   // hueco encontrado
 
@@ -27,9 +22,6 @@ Nodo* insertar(Nodo* raiz, int valor) {
 
     return raiz;
 }
-
-
-
 bool buscar(Nodo* raiz, int valor) {
     if (raiz == nullptr) return false;              // no esta
     if (valor == raiz->dato) return true;           // encontrado
@@ -41,15 +33,11 @@ bool buscar(Nodo* raiz, int valor) {
         return buscar(raiz->der, valor);
     }
 }
-
-
-
 Nodo* minimo(Nodo* raiz) {
     Nodo* actual = raiz;
     while (actual->izq != nullptr) actual = actual->izq;
     return actual;
 }
-
 Nodo* maximo(Nodo* raiz) {
     Nodo* actual = raiz;
     while (actual->der != nullptr) actual = actual->der;
