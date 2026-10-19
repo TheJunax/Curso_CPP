@@ -1,10 +1,8 @@
 /*
   04 - TABLA DISPERSA, DIRECCIONAMIENTO ABIERTO (Cap. 14, Joyanes)
-
   Todo en un vector plano, sin punteros. La colision se resuelve rollingando
   a la siguiente casilla. Por eso los datos ESTAN en el arreglo: si se borra
   de verdad, se rompe la cadena. De ahi el tercer estado (LAPIDA).
-
   Compilar: g++ -Wall -Wextra -g 04_HashAbierto.cpp -o ha
 */
 

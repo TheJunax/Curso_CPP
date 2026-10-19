@@ -56,11 +56,10 @@ void floyd() {
     for (int k = 0; k < numVertices; k++)
         for (int i = 0; i < numVertices; i++)
             for (int j = 0; j < numVertices; j++)
-                if (dist[i][k] != INF && dist[k][j] != INF &&
-                    dist[i][k] + dist[k][j] < dist[i][j])
+                if (dist[i][k] != INF && dist[k][j] != INF && dist[i][k] + dist[k][j] < dist[i][j])
                     dist[i][j] = dist[i][k] + dist[k][j];
 }
-
+   
 int main() {
     // Al inicio: 0 en la diagonal, INF donde no hay arista
     for (int i = 0; i < numVertices; i++)
